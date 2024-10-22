@@ -961,9 +961,9 @@ State-Action matrix after 48001 iterations:
 <div class="section" id="td-algorithm">
 <h2>TD Algorithm<a class="headerlink" href="#td-algorithm" title="Permalink to this heading">#</a></h2>
 <p>In this method the estimated parameter (here the value function or as explained in the original reference utility function) is estimated step by step using the following equation:
-$<span class="math notranslate nohighlight">\(
-		V\left(s_t\right) \leftarrow V\left(s_t\right)+\alpha\left[\mathrm{r}_{t+1}+\gamma V\left(s_{t+1}\right)-V\left(s_t\right)\right]
-	\)</span>$</p>
+<span class="math notranslate nohighlight">\(
+		V\left(s_t\right) \leftarrow V\left(s_t\right)+\alpha\left[\mathrm{r}_{t+1}+\gamma V\left(s_{t+1}\right)-V\left(s_t\right)\right].
+	\)</span></p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">!</span>python<span class="w"> </span>/content/drive/MyDrive/dissecting-reinforcement-learning/src/3/temporal_differencing_control_qlearning.py
