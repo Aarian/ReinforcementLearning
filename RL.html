@@ -1,0 +1,2458 @@
+
+
+<!DOCTYPE html>
+
+
+<html lang="en" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>&lt;no title&gt; &#8212; Implementation on Reinforcement Algorithms</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" href="_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
+
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/sphinx_highlight.js"></script>
+    <script src="_static/clipboard.min.js"></script>
+    <script src="_static/copybutton.js"></script>
+    <script src="_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="_static/sphinx-thebe.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'RL';</script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="Implementation on Reinforcement Learning Algorithms" href="intro.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+  
+
+<a class="navbar-brand logo" href="intro.html">
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/logo.jpeg" class="logo__image only-light" alt="Logo image"/>
+    <script>document.write(`<img src="_static/logo.jpeg" class="logo__image only-dark" alt="Logo image"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="intro.html">
+                    Implementation on Reinforcement Learning Algorithms
+                </a>
+            </li>
+        </ul>
+        
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/Aarian/ReinforcementLearning" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/Aarian/ReinforcementLearning/issues/new?title=Issue%20on%20page%20%2FRL.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="_sources/RL.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+<script>
+document.write(`
+  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+  </button>
+`);
+</script>
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1><no title></h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="simple visible nav section-nav flex-column">
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">google.colab</span> <span class="kn">import</span> <span class="n">drive</span>
+<span class="n">drive</span><span class="o">.</span><span class="n">mount</span><span class="p">(</span><span class="s1">&#39;/content/drive&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">ModuleNotFoundError</span><span class="g g-Whitespace">                       </span>Traceback (most recent call last)
+<span class="o">&lt;</span><span class="n">ipython</span><span class="o">-</span><span class="nb">input</span><span class="o">-</span><span class="mi">1</span><span class="o">-</span><span class="n">d5df0069828e</span><span class="o">&gt;</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="ne">----&gt; </span><span class="mi">1</span> <span class="kn">from</span> <span class="nn">google.colab</span> <span class="kn">import</span> <span class="n">drive</span>
+<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="n">drive</span><span class="o">.</span><span class="n">mount</span><span class="p">(</span><span class="s1">&#39;/content/drive&#39;</span><span class="p">)</span>
+
+<span class="ne">ModuleNotFoundError</span>: No module named &#39;google&#39;
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
+<span class="n">os</span><span class="o">.</span><span class="n">chdir</span><span class="p">(</span><span class="s1">&#39;/content/drive/My Drive/&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">!</span>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/mpatacchiola/dissecting-reinforcement-learning.git
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Cloning into &#39;dissecting-reinforcement-learning&#39;...
+remote: Enumerating objects: 491, done.
+remote: Counting objects: 100% (27/27), done.
+remote: Compressing objects: 100% (25/25), done.
+remote: Total 491 (delta 11), reused 9 (delta 2), pack-reused 464 (from 1)
+Receiving objects: 100% (491/491), 28.83 MiB | 13.99 MiB/s, done.
+Resolving deltas: 100% (254/254), done.
+Updating files: 100% (81/81), done.
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">!</span>python<span class="w"> </span>/content/drive/MyDrive/dissecting-reinforcement-learning/src/2/montecarlo_control.py
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>State Matrix:
+[[ 0.  0.  0.  1.]
+ [ 0. -1.  0.  1.]
+ [ 0.  0.  0.  0.]]
+Reward Matrix:
+[[-0.04 -0.04 -0.04  1.  ]
+ [-0.04 -0.04 -0.04 -1.  ]
+ [-0.04 -0.04 -0.04 -0.04]]
+
+State-Action matrix after 1 iterations:
+[[ 5.73063771e+09  5.89035440e+09  4.28064759e+09  3.75857976e+09
+   2.66925253e+09  8.48003212e+09  5.57633951e+09  5.24345632e+09
+   6.81879706e+09  7.97489588e+08  6.47409805e+09  6.61522849e+09]
+ [ 2.67263226e+09  1.26257212e+09  7.97655416e+09  6.34589763e+09
+   2.10506912e+09  3.76695570e+09  3.35255274e+09  1.36934899e+09
+   3.84360091e+08 -1.14205672e+01  3.83809723e+09  8.70636023e+09]
+ [ 8.36887510e+09  6.23098959e+09  5.59517703e+09  8.43944016e+09
+   3.48443083e+09  9.22596773e+09 -1.12462609e+01  1.39428690e+08
+   6.45649247e+08  5.89098531e+09  4.33602095e+09 -1.22692960e+01]
+ [ 7.84738045e+09  9.59527533e+09  3.91133462e+09  1.92461667e+08
+   7.49858652e+09  1.51035625e+09  2.55430815e+09  9.95932670e+09
+   7.09782497e+09  6.75243630e+09 -1.12876514e+01 -1.13405275e+01]]
+Policy matrix after 1 iterations:
+[[ 3.  0.  1. -1.]
+ [ 1. nan  0. -1.]
+ [ 1.  3.  0.  1.]]
+ &lt;   ^   &gt;   *  
+ &gt;   #   ^   *  
+ &gt;   &lt;   ^   &gt;  
+
+
+State-Action matrix after 3001 iterations:
+[[ 2.33996274e-01  6.23326106e-01  8.80329948e-01  3.75857976e+09
+   3.16719496e-01  8.48003212e+09  6.76898359e-01  5.24345632e+09
+   2.68887554e-01  5.98237261e-02  5.53789435e-01 -7.91942672e-01]
+ [ 7.73541025e-01  9.09211138e-01  9.55226396e-01  6.34589763e+09
+   5.10342575e-02  3.76695570e+09 -7.56846079e-01  1.36934899e+09
+  -9.13457545e-02  4.44338518e-01 -9.30464861e-02 -1.72763064e-01]
+ [ 1.19517410e-01  6.82585494e-01  5.06146356e-01  8.43944016e+09
+   3.02606049e-01  9.22596773e+09  2.80670374e-01  1.39428690e+08
+   1.96698728e-01  8.84678562e-02  4.03334884e-01  2.34209603e-03]
+ [ 1.50041884e-01 -1.06727804e-01  8.35231061e-01  1.92461667e+08
+   5.54711639e-02  1.51035625e+09  5.63341881e-01  9.95932670e+09
+   1.87035765e-02 -2.37294786e-01  1.89982959e-01  2.97917042e-01]]
+Policy matrix after 3001 iterations:
+[[ 1.  1.  1. -1.]
+ [ 0. nan  0. -1.]
+ [ 0.  1.  0.  3.]]
+ &gt;   &gt;   &gt;   *  
+ ^   #   ^   *  
+ ^   &gt;   ^   &lt;  
+
+
+State-Action matrix after 6001 iterations:
+[[ 5.08029914e-01  7.49032623e-01  8.90011951e-01  3.75857976e+09
+   5.25893305e-01  8.48003212e+09  6.94672832e-01  5.24345632e+09
+   4.88101834e-01  1.99046761e-01  5.91706051e-01 -7.66497593e-01]
+ [ 8.26043316e-01  9.08750316e-01  9.58246657e-01  6.34589763e+09
+   3.43273208e-01  3.76695570e+09 -5.95294493e-01  1.36934899e+09
+   1.92024577e-01  5.10546123e-01  8.42370756e-02  2.74050489e-02]
+ [ 1.93663741e-01  7.89659512e-01  6.29526369e-01  8.43944016e+09
+   5.04068850e-01  9.22596773e+09  2.96005953e-01  1.39428690e+08
+   4.32736593e-01  2.56753788e-01  5.17254355e-01  2.85571779e-01]
+ [ 5.25665999e-01  3.94365415e-01  8.50503593e-01  1.92461667e+08
+   3.92956923e-01  1.51035625e+09  6.08254313e-01  9.95932670e+09
+   3.12962426e-01  1.84639032e-01  3.49425602e-01  3.55630509e-01]]
+Policy matrix after 6001 iterations:
+[[ 1.  1.  1. -1.]
+ [ 0. nan  0. -1.]
+ [ 0.  1.  0.  3.]]
+ &gt;   &gt;   &gt;   *  
+ ^   #   ^   *  
+ ^   &gt;   ^   &lt;  
+
+
+State-Action matrix after 9001 iterations:
+[[ 6.01049025e-01  7.88219179e-01  9.00635293e-01  3.75857976e+09
+   6.07250902e-01  8.48003212e+09  7.07900865e-01  5.24345632e+09
+   5.64701841e-01  2.66032283e-01  6.15329938e-01 -7.41857382e-01]
+ [ 8.28533488e-01  9.04727813e-01  9.57142074e-01  6.34589763e+09
+   4.59967310e-01  3.76695570e+09 -6.03769625e-01  1.36934899e+09
+   3.51251156e-01  5.49875568e-01  2.27510665e-01  1.55075380e-01]
+ [ 2.58829171e-01  8.15128194e-01  6.53698834e-01  8.43944016e+09
+   5.80985958e-01  9.22596773e+09  3.56854281e-01  1.39428690e+08
+   5.22939334e-01  3.50236444e-01  5.55549864e-01  2.80522438e-01]
+ [ 6.10487673e-01  5.64794163e-01  8.32803425e-01  1.92461667e+08
+   5.14335300e-01  1.51035625e+09  6.55164104e-01  9.95932670e+09
+   4.10772124e-01  3.74638928e-01  4.26235142e-01  3.77122725e-01]]
+Policy matrix after 9001 iterations:
+[[ 1.  1.  1. -1.]
+ [ 0. nan  0. -1.]
+ [ 0.  1.  0.  3.]]
+ &gt;   &gt;   &gt;   *  
+ ^   #   ^   *  
+ ^   &gt;   ^   &lt;  
+
+
+State-Action matrix after 12001 iterations:
+[[ 6.49872216e-01  8.02500618e-01  8.96737061e-01  3.75857976e+09
+   6.46371736e-01  8.48003212e+09  7.04042490e-01  5.24345632e+09
+   6.00012848e-01  3.03068217e-01  6.17175762e-01 -7.59272917e-01]
+ [ 8.28460445e-01  9.00513913e-01  9.53285610e-01  6.34589763e+09
+   5.38508983e-01  3.76695570e+09 -6.32569979e-01  1.36934899e+09
+   4.26139829e-01  5.53477061e-01  3.02616639e-01  1.78918707e-01]
+ [ 2.94894967e-01  8.20848233e-01  6.47007494e-01  8.43944016e+09
+   6.21680408e-01  9.22596773e+09  3.87013360e-01  1.39428690e+08
+   5.56407193e-01  3.88643246e-01  5.64558827e-01  3.06623109e-01]
+ [ 6.47049891e-01  6.38554512e-01  8.42006596e-01  1.92461667e+08
+   5.58893606e-01  1.51035625e+09  6.69461148e-01  9.95932670e+09
+   4.67522915e-01  4.35791140e-01  4.37244290e-01  3.85394435e-01]]
+Policy matrix after 12001 iterations:
+[[ 1.  1.  1. -1.]
+ [ 0. nan  0. -1.]
+ [ 0.  1.  0.  3.]]
+ &gt;   &gt;   &gt;   *  
+ ^   #   ^   *  
+ ^   &gt;   ^   &lt;  
+
+
+State-Action matrix after 15001 iterations:
+[[ 6.78782422e-01  8.15249074e-01  9.08119331e-01  3.75857976e+09
+   6.73219504e-01  8.48003212e+09  7.05444819e-01  5.24345632e+09
+   6.22449896e-01  3.47367757e-01  6.19181012e-01 -7.61625830e-01]
+ [ 8.31849124e-01  9.01064682e-01  9.53765110e-01  6.34589763e+09
+   5.74565717e-01  3.76695570e+09 -6.36010706e-01  1.36934899e+09
+   4.46222529e-01  5.56541878e-01  3.13872657e-01  2.00103254e-01]
+ [ 3.34369880e-01  8.32067193e-01  6.57588123e-01  8.43944016e+09
+   6.44659030e-01  9.22596773e+09  3.96225715e-01  1.39428690e+08
+   5.75771559e-01  4.27286988e-01  5.57250439e-01  3.17485363e-01]
+ [ 6.77299484e-01  6.79959266e-01  8.37021512e-01  1.92461667e+08
+   5.84714810e-01  1.51035625e+09  6.75662448e-01  9.95932670e+09
+   5.18281695e-01  4.61477591e-01  4.70690982e-01  3.72523067e-01]]
+Policy matrix after 15001 iterations:
+[[ 1.  1.  1. -1.]
+ [ 0. nan  0. -1.]
+ [ 0.  1.  0.  3.]]
+ &gt;   &gt;   &gt;   *  
+ ^   #   ^   *  
+ ^   &gt;   ^   &lt;  
+
+
+State-Action matrix after 18001 iterations:
+[[ 7.04245765e-01  8.18566660e-01  9.09466224e-01  3.75857976e+09
+   6.95247389e-01  8.48003212e+09  7.05031324e-01  5.24345632e+09
+   6.39434042e-01  3.78559216e-01  6.19309650e-01 -7.53960642e-01]
+ [ 8.36858259e-01  9.03618819e-01  9.55277374e-01  6.34589763e+09
+   6.13589595e-01  3.76695570e+09 -6.46541476e-01  1.36934899e+09
+   4.53414088e-01  5.59662024e-01  3.44987823e-01  2.02887726e-01]
+ [ 3.66981501e-01  8.36829016e-01  6.64330639e-01  8.43944016e+09
+   6.52963214e-01  9.22596773e+09  3.83205672e-01  1.39428690e+08
+   5.86439537e-01  4.54379777e-01  5.69372551e-01  3.10579628e-01]
+ [ 6.94894452e-01  7.08884954e-01  8.46414570e-01  1.92461667e+08
+   6.19523502e-01  1.51035625e+09  6.86154122e-01  9.95932670e+09
+   5.51444718e-01  4.91546443e-01  4.81777919e-01  3.81527720e-01]]
+Policy matrix after 18001 iterations:
+[[ 1.  1.  1. -1.]
+ [ 0. nan  0. -1.]
+ [ 0.  1.  0.  3.]]
+ &gt;   &gt;   &gt;   *  
+ ^   #   ^   *  
+ ^   &gt;   ^   &lt;  
+
+Utility matrix after 20000 iterations:
+[[ 7.15865453e-01  8.24600091e-01  9.14135580e-01  3.75857976e+09
+   7.06186781e-01  8.48003212e+09  7.04349547e-01  5.24345632e+09
+   6.49466201e-01  3.85143321e-01  6.17191134e-01 -7.34702458e-01]
+ [ 8.38291732e-01  9.04546081e-01  9.56613155e-01  6.34589763e+09
+   6.25390238e-01  3.76695570e+09 -6.53778509e-01  1.36934899e+09
+   4.57172174e-01  5.57675142e-01  3.45798958e-01  2.04179950e-01]
+ [ 3.89469002e-01  8.34224868e-01  6.65977932e-01  8.43944016e+09
+   6.63112751e-01  9.22596773e+09  3.80248676e-01  1.39428690e+08
+   5.94288706e-01  4.78623536e-01  5.74115022e-01  3.15245747e-01]
+ [ 7.04467984e-01  7.14447637e-01  8.52623628e-01  1.92461667e+08
+   6.30201270e-01  1.51035625e+09  6.71236485e-01  9.95932670e+09
+   5.59984664e-01  5.04235896e-01  5.00545269e-01  3.84111906e-01]]
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">sys</span>
+<span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;/content/drive/MyDrive/dissecting-reinforcement-learning/src/2/&#39;</span><span class="p">)</span>
+
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">gridworld</span> <span class="kn">import</span> <span class="n">GridWorld</span>
+<span class="kn">from</span> <span class="nn">montecarlo_control</span> <span class="kn">import</span> <span class="o">*</span>
+
+<span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+
+    <span class="n">env</span> <span class="o">=</span> <span class="n">GridWorld</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
+
+    <span class="c1"># Define the state matrix</span>
+    <span class="n">state_matrix</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">))</span>
+    <span class="n">state_matrix</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="n">state_matrix</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="n">state_matrix</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+
+    <span class="c1"># Define the reward matrix</span>
+    <span class="n">reward_matrix</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">full</span><span class="p">((</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">),</span> <span class="o">-</span><span class="mf">0.04</span><span class="p">)</span>
+    <span class="n">reward_matrix</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="n">reward_matrix</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+
+    <span class="c1"># Define the transition matrix</span>
+    <span class="n">transition_matrix</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mf">0.8</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">],</span>
+                                  <span class="p">[</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.8</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">],</span>
+                                  <span class="p">[</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.8</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">],</span>
+                                  <span class="p">[</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.8</span><span class="p">]])</span>
+
+    <span class="c1"># Random policy</span>
+    <span class="n">policy_matrix</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="n">low</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">high</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
+    <span class="n">policy_matrix</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">NaN</span>  <span class="c1"># NaN for the obstacle at (1,1)</span>
+    <span class="n">policy_matrix</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="n">policy_matrix</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>  <span class="c1"># No action for the terminal states</span>
+
+    <span class="n">env</span><span class="o">.</span><span class="n">setStateMatrix</span><span class="p">(</span><span class="n">state_matrix</span><span class="p">)</span>
+    <span class="n">env</span><span class="o">.</span><span class="n">setRewardMatrix</span><span class="p">(</span><span class="n">reward_matrix</span><span class="p">)</span>
+    <span class="n">env</span><span class="o">.</span><span class="n">setTransitionMatrix</span><span class="p">(</span><span class="n">transition_matrix</span><span class="p">)</span>
+
+    <span class="n">state_action_matrix</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">random_sample</span><span class="p">((</span><span class="mi">4</span><span class="p">,</span><span class="mi">12</span><span class="p">))</span>  <span class="c1"># Q</span>
+    <span class="n">running_mean_matrix</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">full</span><span class="p">((</span><span class="mi">4</span><span class="p">,</span><span class="mi">12</span><span class="p">),</span> <span class="mf">1.0e-10</span><span class="p">)</span>  <span class="c1"># Initialize to avoid division by zero</span>
+    <span class="n">gamma</span> <span class="o">=</span> <span class="mf">0.999</span>
+    <span class="n">tot_epoch</span> <span class="o">=</span> <span class="mi">50000</span>
+    <span class="n">print_epoch</span> <span class="o">=</span> <span class="mi">3000</span>
+
+    <span class="c1"># Create a list to track the state-action values over epochs</span>
+    <span class="n">state_action_history</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="k">for</span> <span class="n">epoch</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">tot_epoch</span><span class="p">):</span>
+        <span class="n">episode_list</span> <span class="o">=</span> <span class="nb">list</span><span class="p">()</span>
+        <span class="n">observation</span> <span class="o">=</span> <span class="n">env</span><span class="o">.</span><span class="n">reset</span><span class="p">(</span><span class="n">exploring_starts</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">is_starting</span> <span class="o">=</span> <span class="kc">True</span>
+
+        <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1000</span><span class="p">):</span>
+            <span class="n">action</span> <span class="o">=</span> <span class="n">policy_matrix</span><span class="p">[</span><span class="n">observation</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">observation</span><span class="p">[</span><span class="mi">1</span><span class="p">]]</span>
+            <span class="k">if</span> <span class="n">is_starting</span><span class="p">:</span>
+                <span class="n">action</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
+                <span class="n">is_starting</span> <span class="o">=</span> <span class="kc">False</span>
+            <span class="n">new_observation</span><span class="p">,</span> <span class="n">reward</span><span class="p">,</span> <span class="n">done</span> <span class="o">=</span> <span class="n">env</span><span class="o">.</span><span class="n">step</span><span class="p">(</span><span class="n">action</span><span class="p">)</span>
+            <span class="n">episode_list</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">observation</span><span class="p">,</span> <span class="n">action</span><span class="p">,</span> <span class="n">reward</span><span class="p">))</span>
+            <span class="n">observation</span> <span class="o">=</span> <span class="n">new_observation</span>
+            <span class="k">if</span> <span class="n">done</span><span class="p">:</span> <span class="k">break</span>
+
+        <span class="c1"># First-visit MC: Estimate return and update state-action values</span>
+        <span class="n">counter</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">checkup_matrix</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">4</span><span class="p">,</span><span class="mi">12</span><span class="p">))</span>
+        <span class="k">for</span> <span class="n">visit</span> <span class="ow">in</span> <span class="n">episode_list</span><span class="p">:</span>
+            <span class="n">observation</span><span class="p">,</span> <span class="n">action</span><span class="p">,</span> <span class="n">reward</span> <span class="o">=</span> <span class="n">visit</span>
+            <span class="n">col</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">observation</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="p">(</span><span class="n">observation</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">*</span><span class="mi">4</span><span class="p">))</span>
+            <span class="n">row</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">action</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">checkup_matrix</span><span class="p">[</span><span class="n">row</span><span class="p">,</span> <span class="n">col</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">return_value</span> <span class="o">=</span> <span class="n">get_return</span><span class="p">(</span><span class="n">episode_list</span><span class="p">[</span><span class="n">counter</span><span class="p">:],</span> <span class="n">gamma</span><span class="p">)</span>
+                <span class="n">running_mean_matrix</span><span class="p">[</span><span class="n">row</span><span class="p">,</span> <span class="n">col</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+                <span class="n">state_action_matrix</span><span class="p">[</span><span class="n">row</span><span class="p">,</span> <span class="n">col</span><span class="p">]</span> <span class="o">+=</span> <span class="n">return_value</span>
+                <span class="n">checkup_matrix</span><span class="p">[</span><span class="n">row</span><span class="p">,</span> <span class="n">col</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+            <span class="n">counter</span> <span class="o">+=</span> <span class="mi">1</span>
+
+        <span class="n">policy_matrix</span> <span class="o">=</span> <span class="n">update_policy</span><span class="p">(</span><span class="n">episode_list</span><span class="p">,</span> <span class="n">policy_matrix</span><span class="p">,</span> <span class="n">state_action_matrix</span> <span class="o">/</span> <span class="n">running_mean_matrix</span><span class="p">)</span>
+
+        <span class="c1"># Append the normalized state-action matrix to history at each epoch</span>
+        <span class="n">state_action_history</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">state_action_matrix</span> <span class="o">/</span> <span class="n">running_mean_matrix</span><span class="p">))</span>
+
+        <span class="k">if</span> <span class="n">epoch</span> <span class="o">%</span> <span class="n">print_epoch</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;State-Action matrix after </span><span class="si">{</span><span class="n">epoch</span><span class="o">+</span><span class="mi">1</span><span class="si">}</span><span class="s2"> iterations:&quot;</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="n">state_action_matrix</span> <span class="o">/</span> <span class="n">running_mean_matrix</span><span class="p">)</span>
+
+    <span class="c1"># Convert history to a NumPy array for easy slicing</span>
+    <span class="n">state_action_history</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">state_action_history</span><span class="p">)</span>
+
+    <span class="c1"># Plot the trends of each entry</span>
+    <span class="n">epochs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">tot_epoch</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">4</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">12</span><span class="p">):</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">epochs</span><span class="p">,</span> <span class="p">(</span><span class="n">state_action_history</span><span class="p">[:,</span> <span class="n">row</span><span class="p">,</span> <span class="n">col</span><span class="p">]),</span> <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;Entry (</span><span class="si">{</span><span class="n">row</span><span class="si">}</span><span class="s2">,</span><span class="si">{</span><span class="n">col</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">yscale</span><span class="p">(</span><span class="s1">&#39;log&#39;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Epochs&quot;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Q(s,a) &quot;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;State-Action Matrix Entries Trend Over Time&quot;</span><span class="p">)</span>
+    <span class="c1">#plt.gca().yaxis.set_major_formatter(plt.FormatStrFormatter(&#39;%.6f&#39;))  # Increase precision to 6 decimal places</span>
+    <span class="c1">#plt.yticks([1e-5, 1e-4, 1e-3, 1e-2, 1e-1, 1, 10])  # Example of powers of 10</span>
+    <span class="c1">#plt.gca().get_yaxis().set_major_formatter(plt.ScalarFormatter())  # Display values in scalar format</span>
+
+    <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s2">&quot;best&quot;</span><span class="p">,</span> <span class="n">bbox_to_anchor</span><span class="o">=</span><span class="p">(</span><span class="mf">1.05</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">ncol</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>  <span class="c1"># Adjust legend outside plot</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>State-Action matrix after 1 iterations:
+[[ 1.97132882e+09  2.30380520e+09  5.32416253e+09  8.22740378e+08
+   4.91481884e+08  3.24092528e+09  9.59419033e+08  9.86933809e+09
+   8.42486442e+09 -2.44195537e+01  6.41816436e+09  8.42813772e+09]
+ [ 8.28559999e+09  5.85608730e+09  2.96074226e+09  9.73485568e+09
+   4.33227845e+09  6.85326335e+09  7.75483742e+09  1.99593702e+09
+  -2.51476051e+01  4.82675576e+09  9.03008889e+09  8.53883712e+09]
+ [ 3.12116962e+09  2.62581359e+09  5.49232707e+09  1.69565520e+09
+  -2.41707142e+01  9.72525939e+09  8.66496699e+09  6.20976051e+09
+   7.70075902e+09  2.43389752e+09  5.52888223e+09  4.68103554e+09]
+ [ 5.23929463e+09  9.08756759e+09  1.92789593e+09  6.51982840e+09
+   2.90263671e+09  2.06191180e+09  5.81216412e+09  9.60293030e+09
+  -2.42607306e+01  7.11434182e+09 -2.50254946e+01  5.60399790e+09]]
+State-Action matrix after 3001 iterations:
+[[-1.71268267e-01  1.55600255e-01  7.88100971e-01  8.22740378e+08
+  -4.26648105e-01  3.24092528e+09  7.10628634e-01  9.86933809e+09
+  -3.63946349e-01  2.57991494e-01  6.40705621e-01 -8.24744274e-01]
+ [-3.38828041e-01  3.07533466e-01  9.51096509e-01  9.73485568e+09
+  -4.83334343e-01  6.85326335e+09 -6.51403934e-01  1.99593702e+09
+   2.71210167e-01  4.92424895e-01 -3.39584962e-01  2.48555140e-01]
+ [-4.22153642e-01 -1.62118718e-01  5.65894716e-01  1.69565520e+09
+   1.31739620e-01  9.72525939e+09  3.61003592e-01  6.20976051e+09
+   5.83882680e-02  5.74046195e-02  1.37777838e-01  9.34339317e-02]
+ [-7.65641247e-01 -2.57189206e-01 -1.22872763e-01  6.51982840e+09
+  -3.41034080e-01  2.06191180e+09  3.96401839e-01  9.60293030e+09
+  -8.41956721e-02 -2.41205790e-01  2.46711276e-01  4.26051786e-01]]
+State-Action matrix after 6001 iterations:
+[[-2.03992988e-02  2.30907533e-01  8.52494796e-01  8.22740378e+08
+   1.52843000e-01  3.24092528e+09  7.04538433e-01  9.86933809e+09
+   2.35763405e-02  4.20949288e-01  6.16907171e-01 -8.08534138e-01]
+ [ 6.18990853e-01  8.41943877e-01  9.48550386e-01  9.73485568e+09
+  -1.94337499e-02  6.85326335e+09 -6.92260804e-01  1.99593702e+09
+   4.50101856e-01  5.19166250e-01 -7.88993095e-02  2.96232249e-01]
+ [ 6.81055547e-02  3.46081439e-01  6.65682037e-01  1.69565520e+09
+   3.20879032e-01  9.72525939e+09  4.62712592e-01  6.20976051e+09
+   1.02783636e-01  2.81732505e-01  2.68074957e-01  2.71924580e-01]
+ [-1.02303917e-01  1.78851433e-01  3.50260253e-01  6.51982840e+09
+  -1.71917149e-01  2.06191180e+09  5.07733878e-01  9.60293030e+09
+   1.38870707e-01  1.25878958e-01  3.86333833e-01  4.11204674e-01]]
+State-Action matrix after 9001 iterations:
+[[ 5.54846231e-02  2.86313935e-01  8.84991742e-01  8.22740378e+08
+   3.76725338e-01  3.24092528e+09  7.07174334e-01  9.86933809e+09
+   1.49264593e-01  4.60635740e-01  6.18391356e-01 -7.88196537e-01]
+ [ 7.21525896e-01  8.75599268e-01  9.53367504e-01  9.73485568e+09
+   1.12693838e-01  6.85326335e+09 -6.96966954e-01  1.99593702e+09
+   4.73971435e-01  5.28733340e-01  5.48483456e-02  2.65117085e-01]
+ [ 2.58805293e-01  4.95557319e-01  6.80377121e-01  1.69565520e+09
+   3.82878687e-01  9.72525939e+09  4.36220427e-01  6.20976051e+09
+   1.44627013e-01  3.48683874e-01  3.35791149e-01  3.76074889e-01]
+ [ 1.82946807e-01  3.73830176e-01  5.25791387e-01  6.51982840e+09
+  -1.28234343e-02  2.06191180e+09  5.73188760e-01  9.60293030e+09
+   2.75107340e-01  2.18448447e-01  4.40553680e-01  4.15162824e-01]]
+State-Action matrix after 12001 iterations:
+[[ 1.32378576e-01  3.31383229e-01  8.91496695e-01  8.22740378e+08
+   6.44855315e-01  3.24092528e+09  7.03405186e-01  9.86933809e+09
+   2.77019025e-01  4.99881031e-01  6.10593193e-01 -7.59919045e-01]
+ [ 7.85482381e-01  8.93240314e-01  9.55366659e-01  9.73485568e+09
+   2.41396993e-01  6.85326335e+09 -6.91600436e-01  1.99593702e+09
+   4.81595958e-01  5.25733297e-01  1.51907117e-01  2.75741620e-01]
+ [ 3.51717046e-01  5.86183633e-01  7.03035913e-01  1.69565520e+09
+   4.02203885e-01  9.72525939e+09  4.30383076e-01  6.20976051e+09
+   1.77546084e-01  3.71033629e-01  3.73059951e-01  3.73754926e-01]
+ [ 3.51144934e-01  4.97049558e-01  6.19606702e-01  6.51982840e+09
+   1.08539808e-01  2.06191180e+09  5.80466639e-01  9.60293030e+09
+   3.16232115e-01  2.66603670e-01  4.57168254e-01  4.18244834e-01]]
+State-Action matrix after 15001 iterations:
+[[ 1.92984604e-01  3.67377177e-01  9.04708184e-01  8.22740378e+08
+   7.03532804e-01  3.24092528e+09  7.03447570e-01  9.86933809e+09
+   3.49765657e-01  5.06209203e-01  6.13435939e-01 -7.49618469e-01]
+ [ 8.06702671e-01  8.98839920e-01  9.55946278e-01  9.73485568e+09
+   3.42570926e-01  6.85326335e+09 -7.06964920e-01  1.99593702e+09
+   4.91015457e-01  5.31024685e-01  2.03981577e-01  2.80012206e-01]
+ [ 4.42222467e-01  6.31934717e-01  7.26489989e-01  1.69565520e+09
+   4.16314328e-01  9.72525939e+09  4.51845926e-01  6.20976051e+09
+   1.98399017e-01  4.10973753e-01  4.11674148e-01  4.07807492e-01]
+ [ 4.36305110e-01  5.62297455e-01  6.72586177e-01  6.51982840e+09
+   1.87921731e-01  2.06191180e+09  5.75234413e-01  9.60293030e+09
+   3.52338833e-01  3.39001385e-01  4.57439764e-01  4.19614198e-01]]
+State-Action matrix after 18001 iterations:
+[[ 2.41532221e-01  4.02106775e-01  9.06020782e-01  8.22740378e+08
+   7.29358501e-01  3.24092528e+09  7.00787478e-01  9.86933809e+09
+   3.94235297e-01  5.20593736e-01  6.12238342e-01 -7.45817574e-01]
+ [ 8.17836090e-01  9.02693556e-01  9.55731902e-01  9.73485568e+09
+   4.21134937e-01  6.85326335e+09 -6.90074344e-01  1.99593702e+09
+   4.95930491e-01  5.30508943e-01  2.16345672e-01  2.53345853e-01]
+ [ 4.97048853e-01  6.74497965e-01  7.18094116e-01  1.69565520e+09
+   4.25544237e-01  9.72525939e+09  4.40807716e-01  6.20976051e+09
+   2.20342622e-01  4.32699660e-01  4.34600631e-01  4.08461344e-01]
+ [ 4.99649781e-01  6.06139887e-01  6.95023481e-01  6.51982840e+09
+   2.53563631e-01  2.06191180e+09  5.84189381e-01  9.60293030e+09
+   3.65123960e-01  3.51776764e-01  4.51883451e-01  4.17302974e-01]]
+State-Action matrix after 21001 iterations:
+[[ 2.77803511e-01  4.32924397e-01  9.01619882e-01  8.22740378e+08
+   7.46672440e-01  3.24092528e+09  6.98452270e-01  9.86933809e+09
+   4.43069034e-01  5.32533502e-01  6.10226688e-01 -7.51377474e-01]
+ [ 8.24585620e-01  9.02567311e-01  9.55070703e-01  9.73485568e+09
+   4.62048390e-01  6.85326335e+09 -6.92445745e-01  1.99593702e+09
+   4.95537748e-01  5.33506337e-01  2.41598214e-01  2.51962908e-01]
+ [ 5.30521088e-01  7.00688961e-01  7.12412105e-01  1.69565520e+09
+   4.27850582e-01  9.72525939e+09  4.41093346e-01  6.20976051e+09
+   2.46525335e-01  4.44677930e-01  4.70530402e-01  3.82502799e-01]
+ [ 5.38165490e-01  6.19842618e-01  7.18786157e-01  6.51982840e+09
+   3.07648261e-01  2.06191180e+09  5.93377272e-01  9.60293030e+09
+   3.79632492e-01  3.74451707e-01  4.49907813e-01  4.07870414e-01]]
+State-Action matrix after 24001 iterations:
+[[ 3.06001795e-01  4.56859410e-01  9.02912538e-01  8.22740378e+08
+   7.53506094e-01  3.24092528e+09  6.97792774e-01  9.86933809e+09
+   4.64723449e-01  5.33415815e-01  6.11522104e-01 -7.47193273e-01]
+ [ 8.26929849e-01  9.02436942e-01  9.55931506e-01  9.73485568e+09
+   5.01657896e-01  6.85326335e+09 -6.81694930e-01  1.99593702e+09
+   4.99707935e-01  5.38383861e-01  2.64411463e-01  2.47451230e-01]
+ [ 5.56652138e-01  7.19971793e-01  7.19728164e-01  1.69565520e+09
+   4.27413717e-01  9.72525939e+09  4.45626739e-01  6.20976051e+09
+   2.60194835e-01  4.51270507e-01  4.76536858e-01  3.92911221e-01]
+ [ 5.63443522e-01  6.47742481e-01  7.31818651e-01  6.51982840e+09
+   3.59114559e-01  2.06191180e+09  6.04027773e-01  9.60293030e+09
+   4.00201693e-01  3.98557038e-01  4.62026530e-01  4.12573161e-01]]
+State-Action matrix after 27001 iterations:
+[[ 3.38753801e-01  4.79456527e-01  9.04365842e-01  8.22740378e+08
+   7.62575368e-01  3.24092528e+09  6.94726484e-01  9.86933809e+09
+   4.93394006e-01  5.28525493e-01  6.08908422e-01 -7.47969425e-01]
+ [ 8.30963935e-01  9.02675711e-01  9.55724822e-01  9.73485568e+09
+   5.25318971e-01  6.85326335e+09 -6.90370994e-01  1.99593702e+09
+   5.00369320e-01  5.36586722e-01  2.77496778e-01  2.28567677e-01]
+ [ 5.83259982e-01  7.30342494e-01  7.08965406e-01  1.69565520e+09
+   4.29686568e-01  9.72525939e+09  4.40634430e-01  6.20976051e+09
+   2.83982721e-01  4.58824013e-01  4.83435024e-01  4.01870628e-01]
+ [ 5.85369213e-01  6.68271496e-01  7.43800328e-01  6.51982840e+09
+   3.90611283e-01  2.06191180e+09  6.14837853e-01  9.60293030e+09
+   3.96295239e-01  4.02657448e-01  4.66047187e-01  4.09920468e-01]]
+State-Action matrix after 30001 iterations:
+[[ 3.65663584e-01  5.00024790e-01  9.08898628e-01  8.22740378e+08
+   7.70012039e-01  3.24092528e+09  6.95473461e-01  9.86933809e+09
+   5.47128046e-01  5.20922839e-01  6.09416143e-01 -7.39627225e-01]
+ [ 8.34289135e-01  9.04144020e-01  9.56002347e-01  9.73485568e+09
+   5.52118703e-01  6.85326335e+09 -6.88709339e-01  1.99593702e+09
+   5.02662200e-01  5.38435804e-01  2.82123790e-01  2.30929716e-01]
+ [ 6.03055539e-01  7.46423621e-01  7.17109826e-01  1.69565520e+09
+   4.39119496e-01  9.72525939e+09  4.35628151e-01  6.20976051e+09
+   2.95989466e-01  4.74265138e-01  4.93243964e-01  3.96668816e-01]
+ [ 6.06843271e-01  6.86940682e-01  7.54181251e-01  6.51982840e+09
+   4.22377655e-01  2.06191180e+09  6.18841845e-01  9.60293030e+09
+   4.23942538e-01  4.11633705e-01  4.70887902e-01  4.09682386e-01]]
+State-Action matrix after 33001 iterations:
+[[ 3.90261306e-01  5.17176214e-01  9.09732864e-01  8.22740378e+08
+   7.74852258e-01  3.24092528e+09  6.97810072e-01  9.86933809e+09
+   6.02899724e-01  5.25313827e-01  6.12169506e-01 -7.33780594e-01]
+ [ 8.36968030e-01  9.04728548e-01  9.55940311e-01  9.73485568e+09
+   5.75268889e-01  6.85326335e+09 -6.96365305e-01  1.99593702e+09
+   5.03054809e-01  5.42575853e-01  2.85535523e-01  2.25490844e-01]
+ [ 6.18365663e-01  7.58047917e-01  7.17361431e-01  1.69565520e+09
+   4.48647227e-01  9.72525939e+09  4.35192487e-01  6.20976051e+09
+   3.19245743e-01  4.85365303e-01  5.00948736e-01  3.97298450e-01]
+ [ 6.23966877e-01  6.96467995e-01  7.65209231e-01  6.51982840e+09
+   4.50435205e-01  2.06191180e+09  6.30571679e-01  9.60293030e+09
+   4.52302870e-01  4.39857377e-01  4.84776042e-01  4.12352491e-01]]
+State-Action matrix after 36001 iterations:
+[[ 4.10920243e-01  5.37336031e-01  9.09700406e-01  8.22740378e+08
+   7.77840733e-01  3.24092528e+09  6.98925497e-01  9.86933809e+09
+   6.34793730e-01  5.25491916e-01  6.14358139e-01 -7.34658414e-01]
+ [ 8.39007904e-01  9.05557277e-01  9.56252075e-01  9.73485568e+09
+   5.88932936e-01  6.85326335e+09 -6.92732024e-01  1.99593702e+09
+   5.05047806e-01  5.44919962e-01  3.04916913e-01  2.28032935e-01]
+ [ 6.28044993e-01  7.65252808e-01  7.16194862e-01  1.69565520e+09
+   4.61192206e-01  9.72525939e+09  4.33005713e-01  6.20976051e+09
+   3.38259631e-01  4.85893748e-01  5.10911660e-01  3.85822743e-01]
+ [ 6.38263791e-01  7.07540078e-01  7.75305970e-01  6.51982840e+09
+   4.72105890e-01  2.06191180e+09  6.30972988e-01  9.60293030e+09
+   4.78242326e-01  4.64002059e-01  4.94817275e-01  4.11262915e-01]]
+State-Action matrix after 39001 iterations:
+[[ 4.33877714e-01  5.50424456e-01  9.13330631e-01  8.22740378e+08
+   7.79861933e-01  3.24092528e+09  7.00198250e-01  9.86933809e+09
+   6.52773303e-01  5.30807505e-01  6.15873492e-01 -7.36477749e-01]
+ [ 8.39460619e-01  9.05214731e-01  9.56009675e-01  9.73485568e+09
+   5.96265234e-01  6.85326335e+09 -6.99531466e-01  1.99593702e+09
+   5.06241702e-01  5.47738720e-01  3.17669641e-01  2.35842894e-01]
+ [ 6.36011351e-01  7.72650088e-01  7.20306107e-01  1.69565520e+09
+   4.72551405e-01  9.72525939e+09  4.29030275e-01  6.20976051e+09
+   3.54640103e-01  4.94445072e-01  5.13268772e-01  3.93603824e-01]
+ [ 6.51622301e-01  7.15497577e-01  7.83932682e-01  6.51982840e+09
+   4.87821987e-01  2.06191180e+09  6.37239805e-01  9.60293030e+09
+   4.91513597e-01  4.82078251e-01  5.07575618e-01  4.15154317e-01]]
+State-Action matrix after 42001 iterations:
+[[ 4.56560529e-01  5.65332042e-01  9.12005764e-01  8.22740378e+08
+   7.80293452e-01  3.24092528e+09  6.98976709e-01  9.86933809e+09
+   6.62344021e-01  5.33431988e-01  6.13111040e-01 -7.42734023e-01]
+ [ 8.39737950e-01  9.05332235e-01  9.56144730e-01  9.73485568e+09
+   6.07383673e-01  6.85326335e+09 -7.04989693e-01  1.99593702e+09
+   5.03727268e-01  5.45170082e-01  3.23882520e-01  2.31368947e-01]
+ [ 6.45333982e-01  7.81670283e-01  7.24805919e-01  1.69565520e+09
+   4.82402201e-01  9.72525939e+09  4.28988191e-01  6.20976051e+09
+   3.68752208e-01  4.94738807e-01  5.08788314e-01  3.93074820e-01]
+ [ 6.62627810e-01  7.24300104e-01  7.90819330e-01  6.51982840e+09
+   4.99454461e-01  2.06191180e+09  6.41683358e-01  9.60293030e+09
+   5.04220811e-01  4.95252518e-01  5.14102631e-01  4.12055710e-01]]
+State-Action matrix after 45001 iterations:
+[[ 4.73747722e-01  5.75432175e-01  9.14501984e-01  8.22740378e+08
+   7.83247420e-01  3.24092528e+09  6.98117250e-01  9.86933809e+09
+   6.75066865e-01  5.33564881e-01  6.13100365e-01 -7.46899358e-01]
+ [ 8.41195948e-01  9.05564457e-01  9.55911110e-01  9.73485568e+09
+   6.18958021e-01  6.85326335e+09 -6.97254818e-01  1.99593702e+09
+   5.03863343e-01  5.45147076e-01  3.29640602e-01  2.35319938e-01]
+ [ 6.56135391e-01  7.87042064e-01  7.17862322e-01  1.69565520e+09
+   4.92187280e-01  9.72525939e+09  4.32502905e-01  6.20976051e+09
+   3.85766853e-01  5.01143015e-01  5.13466930e-01  3.93973643e-01]
+ [ 6.73971171e-01  7.26631349e-01  7.95254469e-01  6.51982840e+09
+   5.15668939e-01  2.06191180e+09  6.40998003e-01  9.60293030e+09
+   5.18380127e-01  5.06866921e-01  5.14471784e-01  4.14967510e-01]]
+State-Action matrix after 48001 iterations:
+[[ 4.88458615e-01  5.85887356e-01  9.15807800e-01  8.22740378e+08
+   7.85624809e-01  3.24092528e+09  6.98958573e-01  9.86933809e+09
+   6.80427739e-01  5.36588371e-01  6.14909944e-01 -7.47292795e-01]
+ [ 8.41903849e-01  9.05841387e-01  9.56371687e-01  9.73485568e+09
+   6.31866893e-01  6.85326335e+09 -6.87657380e-01  1.99593702e+09
+   5.06011449e-01  5.48105641e-01  3.32325959e-01  2.43865395e-01]
+ [ 6.61619142e-01  7.92067529e-01  7.14415244e-01  1.69565520e+09
+   5.00500056e-01  9.72525939e+09  4.32757529e-01  6.20976051e+09
+   3.98920687e-01  4.98764780e-01  5.15260342e-01  3.89641095e-01]
+ [ 6.78122012e-01  7.32135438e-01  7.99760066e-01  6.51982840e+09
+   5.31843913e-01  2.06191180e+09  6.39384661e-01  9.60293030e+09
+   5.27125521e-01  5.17662231e-01  5.20854335e-01  4.13814227e-01]]
+</pre></div>
+</div>
+<img alt="_images/944ea6cb2fd97ecae177d45c2e63c7a9bff1e99c38adb8b547bfc315e678134a.png" src="_images/944ea6cb2fd97ecae177d45c2e63c7a9bff1e99c38adb8b547bfc315e678134a.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">!</span>python<span class="w"> </span>/content/drive/MyDrive/dissecting-reinforcement-learning/src/3/temporal_differencing_control_qlearning.py
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>State Matrix:
+[[ 0.  0.  0.  1.]
+ [ 0. -1.  0.  1.]
+ [ 0.  0.  0.  0.]]
+Reward Matrix:
+[[-0.04 -0.04 -0.04  1.  ]
+ [-0.04 -0.04 -0.04 -1.  ]
+ [-0.04 -0.04 -0.04 -0.04]]
+Policy Matrix:
+[[ 0.  0.  1. -1.]
+ [ 1. nan  0. -1.]
+ [ 1.  1.  2.  2.]]
+ ^   ^   &gt;   *  
+ &gt;   #   ^   *  
+ &gt;   &gt;   v   v  
+
+Exploratory Policy Matrix:
+[[ 1.  1.  1. -1.]
+ [ 0. nan  0. -1.]
+ [ 0.  1.  0.  3.]]
+ &gt;   &gt;   &gt;   *  
+ ^   #   ^   *  
+ ^   &gt;   ^   &lt;  
+
+
+Epsilon: 0.1
+State-Action matrix after 1 iterations:
+[[ 0.     0.     0.     0.     0.     0.     0.     0.     0.     0.
+   0.     0.   ]
+ [ 0.     0.     0.     0.     0.     0.    -0.001  0.     0.     0.
+   0.     0.   ]
+ [ 0.     0.     0.     0.     0.     0.     0.     0.     0.     0.
+   0.     0.   ]
+ [ 0.     0.     0.     0.     0.     0.     0.     0.     0.     0.
+   0.     0.   ]]
+Policy matrix after 1 iterations:
+ ^   ^   &gt;   *  
+ &gt;   #   ^   *  
+ &gt;   &gt;   v   v  
+
+
+Epsilon: 0.0954992586021436
+State-Action matrix after 1001 iterations:
+[[-1.22726230e-03  2.11518163e-03  8.55920137e-03  0.00000000e+00
+  -1.17339878e-02  0.00000000e+00  5.10659551e-02  0.00000000e+00
+  -6.15629176e-03 -9.99225687e-04 -8.74105945e-03 -1.69521415e-02]
+ [-3.08111312e-03  1.07436007e-01  5.50918713e-01  0.00000000e+00
+  -1.31379646e-03  0.00000000e+00 -2.30346408e-02  0.00000000e+00
+  -1.27580291e-03 -8.32731744e-03 -7.42103670e-04 -4.88083295e-03]
+ [-7.30355183e-04  7.02069534e-04  2.24186672e-04  0.00000000e+00
+  -1.30746608e-03  0.00000000e+00 -8.21363653e-04  0.00000000e+00
+  -1.27140075e-03 -9.98077006e-04 -7.60750790e-04 -1.03903053e-03]
+ [-1.15588042e-03 -1.03071772e-03  1.20740906e-03  0.00000000e+00
+  -9.59692813e-04  0.00000000e+00  7.59418075e-04  0.00000000e+00
+  -7.99992400e-04 -1.42567687e-03 -1.66728538e-03 -2.23625288e-02]]
+Policy matrix after 1001 iterations:
+ v   &gt;   &gt;   *  
+ &lt;   #   ^   *  
+ &lt;   v   &gt;   v  
+
+
+Epsilon: 0.09120108393559098
+State-Action matrix after 2001 iterations:
+[[-1.67986521e-03  5.91444110e-03  3.00152281e-02  0.00000000e+00
+  -1.52921047e-02  0.00000000e+00  2.15012689e-01  0.00000000e+00
+  -1.08791243e-02 -2.06383231e-03  1.84756308e-02 -4.03500964e-02]
+ [ 4.56296960e-02  3.03404601e-01  7.72778092e-01  0.00000000e+00
+  -2.29394264e-03  0.00000000e+00 -4.16850719e-02  0.00000000e+00
+  -2.15176065e-03 -1.44798992e-02 -1.75213381e-03 -6.94655575e-03]
+ [-1.63061933e-03  6.96771389e-03  4.62542872e-03  0.00000000e+00
+  -2.45585815e-03  0.00000000e+00 -1.49044496e-03  0.00000000e+00
+  -2.61149603e-03 -2.34180643e-03 -1.47917402e-03 -2.47674776e-03]
+ [-1.70960717e-03 -7.31122603e-04  5.43292900e-03  0.00000000e+00
+  -2.18356569e-03  0.00000000e+00  3.42963866e-03  0.00000000e+00
+  -1.76045829e-03 -2.60874297e-03 -2.48507504e-03 -4.23199133e-02]]
+Policy matrix after 2001 iterations:
+ &gt;   &gt;   &gt;   *  
+ &lt;   #   ^   *  
+ &lt;   ^   ^   v  
+
+
+Epsilon: 0.08709635899560808
+State-Action matrix after 3001 iterations:
+[[ 1.14306210e-03  1.92063590e-02  4.23757486e-02  0.00000000e+00
+  -1.07604541e-03  0.00000000e+00  3.62186631e-01  0.00000000e+00
+  -1.49374476e-02 -2.72094685e-03  7.49924524e-02 -6.01748289e-02]
+ [ 1.36944037e-01  4.84687761e-01  8.59449842e-01  0.00000000e+00
+  -2.92891510e-03  0.00000000e+00 -5.24304163e-02  0.00000000e+00
+  -3.22485487e-03 -1.23446187e-02 -1.67445746e-03 -1.06819948e-02]
+ [-7.11161154e-04  1.87858917e-02  1.43540446e-02  0.00000000e+00
+  -3.40060139e-03  0.00000000e+00 -2.58346448e-03  0.00000000e+00
+  -3.58948436e-03 -3.38247234e-03 -1.56365084e-03 -3.50346548e-03]
+ [-4.37234831e-04  1.63718368e-03  1.44702648e-02  0.00000000e+00
+  -3.07656246e-03  0.00000000e+00  1.43967909e-02  0.00000000e+00
+  -2.60121760e-03 -3.51076107e-03 -3.06310539e-03 -5.07686674e-02]]
+Policy matrix after 3001 iterations:
+ &gt;   &gt;   &gt;   *  
+ ^   #   ^   *  
+ &lt;   ^   ^   v  
+
+
+Epsilon: 0.0831763771102671
+State-Action matrix after 4001 iterations:
+[[ 4.65311081e-03  3.55601294e-02  7.06679046e-02  0.00000000e+00
+   3.32095960e-02  0.00000000e+00  4.73745692e-01  0.00000000e+00
+  -1.72182409e-02 -3.68397625e-03  1.52171470e-01 -7.10383771e-02]
+ [ 2.40505646e-01  6.14899998e-01  8.99100128e-01  0.00000000e+00
+  -2.91016954e-03  0.00000000e+00 -7.04610099e-02  0.00000000e+00
+  -4.37584990e-03  8.37301526e-04 -2.01264524e-03 -1.52271906e-02]
+ [-5.74520107e-04  2.78658193e-02  2.61487336e-02  0.00000000e+00
+  -4.16703736e-03  0.00000000e+00 -2.48881514e-03  0.00000000e+00
+  -4.87091761e-03 -4.29124399e-03  1.26535787e-04 -3.89977277e-03]
+ [ 2.12302626e-03  8.44079780e-03  3.15571461e-02  0.00000000e+00
+  -3.86248424e-03  0.00000000e+00  2.29540743e-02  0.00000000e+00
+  -3.84452162e-03 -4.53319494e-03 -2.96116475e-03 -5.00328905e-02]]
+Policy matrix after 4001 iterations:
+ &gt;   &gt;   &gt;   *  
+ ^   #   ^   *  
+ &lt;   &gt;   ^   v  
+
+
+Epsilon: 0.07943282347242815
+State-Action matrix after 5001 iterations:
+[[ 0.01042592  0.05132086  0.09176715  0.          0.08260426  0.
+   0.55790899  0.         -0.01406442 -0.00408042  0.23076947 -0.09817153]
+ [ 0.33974332  0.70495283  0.92319746  0.         -0.00227125  0.
+  -0.07920941  0.         -0.00510213  0.0238994  -0.00245109 -0.01884956]
+ [ 0.00163065  0.04373856  0.04254394  0.         -0.00483442  0.
+   0.00157406  0.         -0.00569798 -0.0044062   0.00313127 -0.00461179]
+ [ 0.00855481  0.01527846  0.05297018  0.         -0.00303253  0.
+   0.03660998  0.         -0.00480128 -0.00571908 -0.00294977 -0.03980021]]
+Policy matrix after 5001 iterations:
+ &gt;   &gt;   &gt;   *  
+ ^   #   ^   *  
+ &lt;   &gt;   ^   v  
+
+
+Epsilon: 0.07585775750291839
+State-Action matrix after 6001 iterations:
+[[ 1.75795716e-02  6.46752023e-02  1.15337833e-01  0.00000000e+00
+   1.38412816e-01  0.00000000e+00  6.02095219e-01  0.00000000e+00
+  -5.50544336e-03 -3.17676985e-03  3.01414679e-01 -1.15662310e-01]
+ [ 4.29410466e-01  7.66809449e-01  9.35801146e-01  0.00000000e+00
+  -5.99455950e-04  0.00000000e+00 -9.06385557e-02  0.00000000e+00
+  -4.98872915e-03  5.59756941e-02 -2.09778979e-03 -2.26332039e-02]
+ [ 7.15856139e-03  5.87280870e-02  5.55207056e-02  0.00000000e+00
+  -5.07572290e-03  0.00000000e+00  5.30322945e-03  0.00000000e+00
+  -6.59263800e-03 -3.78367912e-03  8.33464506e-03 -4.94462654e-03]
+ [ 1.70911998e-02  3.19279172e-02  6.43566178e-02  0.00000000e+00
+  -1.01718707e-03  0.00000000e+00  4.99684451e-02  0.00000000e+00
+  -5.58656187e-03 -6.58082686e-03 -1.51039487e-03 -2.44514951e-02]]
+Policy matrix after 6001 iterations:
+ &gt;   &gt;   &gt;   *  
+ ^   #   ^   *  
+ &gt;   &gt;   ^   v  
+
+
+Epsilon: 0.072443596007499
+State-Action matrix after 7001 iterations:
+[[ 2.67459605e-02  7.66849804e-02  1.45939546e-01  0.00000000e+00
+   2.05844990e-01  0.00000000e+00  6.31503756e-01  0.00000000e+00
+   1.04228055e-02 -2.65347298e-03  3.56350709e-01 -1.33121970e-01]
+ [ 5.08915203e-01  8.11006581e-01  9.46008250e-01  0.00000000e+00
+   3.59689683e-03  0.00000000e+00 -1.17748466e-01  0.00000000e+00
+  -3.58560726e-03  9.28711097e-02 -2.51170464e-04 -2.59200267e-02]
+ [ 1.25637037e-02  7.28898637e-02  7.59415288e-02  0.00000000e+00
+  -4.87543963e-03  0.00000000e+00  8.18024683e-03  0.00000000e+00
+  -7.38836668e-03 -2.21048096e-03  1.47723219e-02 -5.53225336e-03]
+ [ 3.34670830e-02  4.55154875e-02  8.30115182e-02  0.00000000e+00
+   1.44497056e-03  0.00000000e+00  6.41406921e-02  0.00000000e+00
+  -5.69681300e-03 -7.12757062e-03  2.63398315e-03  4.39780058e-03]]
+Policy matrix after 7001 iterations:
+ &gt;   &gt;   &gt;   *  
+ ^   #   ^   *  
+ ^   &gt;   ^   &lt;  
+
+
+Epsilon: 0.06918309709189366
+State-Action matrix after 8001 iterations:
+[[ 3.58654146e-02  1.01630971e-01  1.70668804e-01  0.00000000e+00
+   2.74405203e-01  0.00000000e+00  6.49941052e-01  0.00000000e+00
+   3.32702034e-02 -2.21853694e-04  4.00199808e-01 -1.45318037e-01]
+ [ 5.75093932e-01  8.42034444e-01  9.45571637e-01  0.00000000e+00
+   9.11653836e-03  0.00000000e+00 -1.34926753e-01  0.00000000e+00
+  -2.04210981e-03  1.28503951e-01  2.66529109e-03 -2.86906879e-02]
+ [ 2.06263372e-02  9.35030973e-02  9.02024400e-02  0.00000000e+00
+  -4.32408265e-03  0.00000000e+00  1.50506711e-02  0.00000000e+00
+  -7.64577155e-03 -2.35143931e-04  2.28923528e-02 -4.21355969e-03]
+ [ 4.52224828e-02  6.11089899e-02  1.02360308e-01  0.00000000e+00
+   5.65736888e-03  0.00000000e+00  7.11822535e-02  0.00000000e+00
+  -5.78572175e-03 -7.14859784e-03  7.41783865e-03  3.33662375e-02]]
+Policy matrix after 8001 iterations:
+ &gt;   &gt;   &gt;   *  
+ ^   #   ^   *  
+ ^   &gt;   ^   &lt;  
+
+
+Epsilon: 0.0660693448007596
+State-Action matrix after 9001 iterations:
+[[ 4.94680113e-02  1.20653481e-01  1.98197682e-01  0.00000000e+00
+   3.36464265e-01  0.00000000e+00  6.61025748e-01  0.00000000e+00
+   5.76125849e-02  3.82150738e-03  4.34174980e-01 -1.62101882e-01]
+ [ 6.30099423e-01  8.62371256e-01  9.51328062e-01  0.00000000e+00
+   1.75360513e-02  0.00000000e+00 -1.53368824e-01  0.00000000e+00
+   1.19747990e-04  1.72502641e-01  5.82380764e-03 -3.18051314e-02]
+ [ 2.82220189e-02  1.14693013e-01  1.05523419e-01  0.00000000e+00
+  -2.76859847e-03  0.00000000e+00  2.31826639e-02  0.00000000e+00
+  -6.84693194e-03  4.41285174e-03  3.20462309e-02 -3.67808221e-03]
+ [ 6.06882444e-02  7.65116672e-02  1.20993900e-01  0.00000000e+00
+   1.43050272e-02  0.00000000e+00  8.37921335e-02  0.00000000e+00
+  -5.18744366e-03 -6.02686694e-03  1.28683229e-02  5.54350147e-02]]
+Policy matrix after 9001 iterations:
+ &gt;   &gt;   &gt;   *  
+ ^   #   ^   *  
+ ^   &gt;   ^   &lt;  
+
+
+Epsilon: 0.06309573444801933
+State-Action matrix after 10001 iterations:
+[[ 6.29088541e-02  1.39253662e-01  2.21164603e-01  0.00000000e+00
+   3.98487459e-01  0.00000000e+00  6.75463199e-01  0.00000000e+00
+   9.00313300e-02  7.55600437e-03  4.67584434e-01 -1.70746617e-01]
+ [ 6.72611300e-01  8.76518690e-01  9.55333062e-01  0.00000000e+00
+   2.50752843e-02  0.00000000e+00 -1.67648106e-01  0.00000000e+00
+   4.96697764e-03  2.14978814e-01  7.52793656e-03 -3.26042698e-02]
+ [ 3.44852959e-02  1.31930753e-01  1.26055573e-01  0.00000000e+00
+   3.86657708e-04  0.00000000e+00  2.93793300e-02  0.00000000e+00
+  -5.39295275e-03  9.15998826e-03  4.01925704e-02 -2.74464870e-03]
+ [ 7.17684257e-02  9.07057214e-02  1.39341098e-01  0.00000000e+00
+   2.32405383e-02  0.00000000e+00  9.68991599e-02  0.00000000e+00
+  -4.25345630e-03 -3.71223108e-03  1.78259084e-02  8.77891878e-02]]
+Policy matrix after 10001 iterations:
+ &gt;   &gt;   &gt;   *  
+ ^   #   ^   *  
+ ^   &gt;   ^   &lt;  
+
+
+Epsilon: 0.06025595860743578
+State-Action matrix after 11001 iterations:
+[[ 8.38625365e-02  1.54397542e-01  2.43368371e-01  0.00000000e+00
+   4.62173758e-01  0.00000000e+00  6.69523811e-01  0.00000000e+00
+   1.29455704e-01  1.12009101e-02  4.88699374e-01 -1.88258795e-01]
+ [ 7.09465088e-01  8.86311555e-01  9.53641882e-01  0.00000000e+00
+   3.58550025e-02  0.00000000e+00 -1.78802152e-01  0.00000000e+00
+   1.08238879e-02  2.49350202e-01  1.05696206e-02 -3.74798048e-02]
+ [ 4.59722671e-02  1.51274517e-01  1.35607361e-01  0.00000000e+00
+   4.13263476e-03  0.00000000e+00  4.13669887e-02  0.00000000e+00
+  -3.34481859e-03  1.62690089e-02  5.02908575e-02  2.75303383e-03]
+ [ 8.41226130e-02  1.07530682e-01  1.60714702e-01  0.00000000e+00
+   3.02348681e-02  0.00000000e+00  1.11332397e-01  0.00000000e+00
+  -2.97120294e-04 -1.11127495e-03  2.38853951e-02  1.08611609e-01]]
+Policy matrix after 11001 iterations:
+ &gt;   &gt;   &gt;   *  
+ ^   #   ^   *  
+ ^   &gt;   ^   &lt;  
+
+
+Epsilon: 0.057543993733715694
+State-Action matrix after 12001 iterations:
+[[ 1.03287107e-01  1.74061043e-01  2.69837759e-01  0.00000000e+00
+   5.07931767e-01  0.00000000e+00  6.72728158e-01  0.00000000e+00
+   1.65987001e-01  1.71991294e-02  5.02040576e-01 -2.12165333e-01]
+ [ 7.38657120e-01  8.91852298e-01  9.53277776e-01  0.00000000e+00
+   4.70192812e-02  0.00000000e+00 -1.91584936e-01  0.00000000e+00
+   1.87156020e-02  2.80948081e-01  1.55872069e-02 -3.66082329e-02]
+ [ 5.33158352e-02  1.64119281e-01  1.50639839e-01  0.00000000e+00
+   8.72175441e-03  0.00000000e+00  4.94683607e-02  0.00000000e+00
+  -4.35038923e-04  2.15971981e-02  6.03178183e-02  6.08908593e-03]
+ [ 9.97946440e-02  1.22503716e-01  1.83323647e-01  0.00000000e+00
+   4.16697369e-02  0.00000000e+00  1.28064869e-01  0.00000000e+00
+   2.98878676e-03  2.08201791e-03  3.06773996e-02  1.27301544e-01]]
+Policy matrix after 12001 iterations:
+ &gt;   &gt;   &gt;   *  
+ ^   #   ^   *  
+ ^   &gt;   ^   &lt;  
+
+
+Epsilon: 0.054954087385762455
+State-Action matrix after 13001 iterations:
+[[ 0.1159461   0.1946833   0.28525665  0.          0.55212926  0.
+   0.69103959  0.          0.19837241  0.02437437  0.51132006 -0.22661788]
+ [ 0.75760903  0.89561118  0.95438492  0.          0.06217274  0.
+  -0.20060296  0.          0.02447836  0.31119668  0.02183398 -0.03597379]
+ [ 0.07006712  0.18088012  0.16832766  0.          0.01237043  0.
+   0.05950366  0.          0.00325524  0.02762219  0.06982452  0.00962868]
+ [ 0.11673954  0.14178155  0.20328658  0.          0.051182    0.
+   0.14788585  0.          0.00630764  0.0067128   0.03841162  0.15384364]]
+Policy matrix after 13001 iterations:
+ &gt;   &gt;   &gt;   *  
+ ^   #   ^   *  
+ ^   &gt;   ^   &lt;  
+
+
+Epsilon: 0.05248074602497726
+State-Action matrix after 14001 iterations:
+[[ 0.12817296  0.21448338  0.30634236  0.          0.59544573  0.
+   0.69729415  0.          0.24167665  0.02994583  0.53324419 -0.23341955]
+ [ 0.77807873  0.89890994  0.95427992  0.          0.07578307  0.
+  -0.21395287  0.          0.03415631  0.33817092  0.02712493 -0.03401189]
+ [ 0.08581802  0.19599238  0.18169972  0.          0.01897666  0.
+   0.07301176  0.          0.00867709  0.03570999  0.07642835  0.01353587]
+ [ 0.13280917  0.15615335  0.21969737  0.          0.06589973  0.
+   0.16543197  0.          0.0135985   0.01434474  0.04569002  0.1723934 ]]
+Policy matrix after 14001 iterations:
+ &gt;   &gt;   &gt;   *  
+ ^   #   ^   *  
+ ^   &gt;   ^   &lt;  
+
+
+Epsilon: 0.05011872336272724
+State-Action matrix after 15001 iterations:
+[[ 0.14491821  0.23137321  0.32167604  0.          0.62945377  0.
+   0.71134633  0.          0.28019349  0.03674934  0.54896018 -0.24450705]
+ [ 0.79333554  0.90060018  0.95842862  0.          0.08650121  0.
+  -0.23150231  0.          0.04113032  0.36459612  0.03117094 -0.03083886]
+ [ 0.10281052  0.21455253  0.19776903  0.          0.02727679  0.
+   0.078862    0.          0.01471138  0.04498     0.0873432   0.01786713]
+ [ 0.14626759  0.16966528  0.23319271  0.          0.08365744  0.
+   0.18185254  0.          0.02157376  0.01866229  0.05597305  0.19167046]]
+Policy matrix after 15001 iterations:
+ &gt;   &gt;   &gt;   *  
+ ^   #   ^   *  
+ ^   &gt;   ^   &lt;  
+
+
+Epsilon: 0.04786300923226384
+State-Action matrix after 16001 iterations:
+[[ 0.15814798  0.25404344  0.3442108   0.          0.6572728   0.
+   0.68531924  0.          0.3135549   0.04951509  0.56132871 -0.25756651]
+ [ 0.8034787   0.90348255  0.95782642  0.          0.10156692  0.
+  -0.24517095  0.          0.0517341   0.39026099  0.03718892 -0.02906994]
+ [ 0.12246289  0.22790462  0.21171186  0.          0.03465716  0.
+   0.08668235  0.          0.02082874  0.05315974  0.09451934  0.02112282]
+ [ 0.15940671  0.18717711  0.25039656  0.          0.09783139  0.
+   0.19629888  0.          0.02833663  0.0257581   0.06344419  0.20125979]]
+Policy matrix after 16001 iterations:
+ &gt;   &gt;   &gt;   *  
+ ^   #   ^   *  
+ ^   &gt;   ^   &lt;  
+
+
+Epsilon: 0.045708818961487506
+State-Action matrix after 17001 iterations:
+[[ 0.17715817  0.26831483  0.36055391  0.          0.67936958  0.
+   0.68055764  0.          0.34638603  0.05774102  0.56096634 -0.27325255]
+ [ 0.81296078  0.90439479  0.95742021  0.          0.11599636  0.
+  -0.25218408  0.          0.06090024  0.41106451  0.04169532 -0.02379869]
+ [ 0.13528733  0.24996711  0.2273274   0.          0.04269255  0.
+   0.09616781  0.          0.02727559  0.06068525  0.10231156  0.02720016]
+ [ 0.18064578  0.20611565  0.2679572   0.          0.10958517  0.
+   0.20667971  0.          0.03650659  0.0328604   0.07518325  0.21575708]]
+Policy matrix after 17001 iterations:
+ &gt;   &gt;   &gt;   *  
+ ^   #   ^   *  
+ ^   &gt;   ^   &lt;  
+
+
+Epsilon: 0.043651583224016605
+State-Action matrix after 18001 iterations:
+[[ 0.19348663  0.28909887  0.37832128  0.          0.69857578  0.
+   0.68558619  0.          0.37907276  0.06622375  0.56453119 -0.2869268 ]
+ [ 0.82119641  0.90509803  0.95480433  0.          0.12952244  0.
+  -0.26245297  0.          0.0676299   0.42827814  0.04910306 -0.02071569]
+ [ 0.15463624  0.26825162  0.23938899  0.          0.04782314  0.
+   0.10394428  0.          0.03667695  0.07318118  0.11153094  0.03092535]
+ [ 0.19362761  0.22978666  0.27862761  0.          0.12342312  0.
+   0.21810967  0.          0.04436562  0.04021499  0.08473076  0.23694674]]
+Policy matrix after 18001 iterations:
+ &gt;   &gt;   &gt;   *  
+ ^   #   ^   *  
+ ^   &gt;   ^   &lt;  
+
+
+Epsilon: 0.04168693834703355
+State-Action matrix after 19001 iterations:
+[[ 0.20582543  0.30444404  0.39225456  0.          0.71675661  0.
+   0.69761499  0.          0.41425121  0.07662409  0.56750616 -0.30298925]
+ [ 0.82592237  0.90421865  0.95063802  0.          0.14568248  0.
+  -0.26628004  0.          0.07575513  0.44399604  0.05341436 -0.01761325]
+ [ 0.16670493  0.28799544  0.25234754  0.          0.05886553  0.
+   0.1076378   0.          0.04641414  0.07992213  0.12106862  0.03599892]
+ [ 0.20621356  0.24654567  0.29108362  0.          0.13904637  0.
+   0.22893068  0.          0.05602716  0.04953617  0.09503996  0.25176961]]
+Policy matrix after 19001 iterations:
+ &gt;   &gt;   &gt;   *  
+ ^   #   ^   *  
+ ^   &gt;   ^   &lt;  
+
+
+Epsilon: 0.03981071705534973
+State-Action matrix after 20001 iterations:
+[[ 0.22330082  0.31810783  0.40361969  0.          0.73095442  0.
+   0.69454246  0.          0.44119919  0.08865018  0.57637411 -0.31294761]
+ [ 0.82944446  0.90356132  0.9563336   0.          0.15768169  0.
+  -0.27939235  0.          0.0858513   0.4575649   0.06033119 -0.01456319]
+ [ 0.18304269  0.30496559  0.26404478  0.          0.06782566  0.
+   0.11642133  0.          0.05357066  0.09084349  0.1330925   0.04043487]
+ [ 0.21864256  0.26070961  0.30199519  0.          0.15399728  0.
+   0.24356234  0.          0.06548863  0.0577005   0.10523006  0.2687408 ]]
+Policy matrix after 20001 iterations:
+ &gt;   &gt;   &gt;   *  
+ ^   #   ^   *  
+ ^   &gt;   ^   &lt;  
+
+
+Epsilon: 0.038018939632056124
+State-Action matrix after 21001 iterations:
+[[ 0.23420112  0.33112539  0.41495262  0.          0.74335089  0.
+   0.69641813  0.          0.46893035  0.09876336  0.58318748 -0.32104975]
+ [ 0.83370047  0.90454589  0.95777434  0.          0.17605313  0.
+  -0.29768061  0.          0.09099143  0.46746329  0.06804668 -0.00786654]
+ [ 0.20384336  0.32018753  0.27471533  0.          0.08224752  0.
+   0.1234231   0.          0.06145365  0.09985217  0.14694598  0.04618192]
+ [ 0.23629438  0.27525602  0.31933044  0.          0.17189616  0.
+   0.25423394  0.          0.07439249  0.06858742  0.11317727  0.2848171 ]]
+Policy matrix after 21001 iterations:
+ &gt;   &gt;   &gt;   *  
+ ^   #   ^   *  
+ ^   &gt;   ^   &lt;  
+
+
+Epsilon: 0.03630780547701014
+State-Action matrix after 22001 iterations:
+[[ 0.24715181  0.34574119  0.42875114  0.          0.75276099  0.
+   0.69707476  0.          0.49542043  0.10543673  0.59090158 -0.33464575]
+ [ 0.83603728  0.90635289  0.95798141  0.          0.18884153  0.
+  -0.30581324  0.          0.09830609  0.4776055   0.0748833  -0.00726579]
+ [ 0.21880951  0.34219565  0.28725835  0.          0.09342295  0.
+   0.13132146  0.          0.07344753  0.10929351  0.15853766  0.05326595]
+ [ 0.24662977  0.29202982  0.33175353  0.          0.18941999  0.
+   0.2688282   0.          0.08229302  0.08168323  0.1232183   0.29132161]]
+Policy matrix after 22001 iterations:
+ &gt;   &gt;   &gt;   *  
+ ^   #   ^   *  
+ ^   &gt;   ^   &lt;  
+
+
+Epsilon: 0.034673685045253165
+State-Action matrix after 23001 iterations:
+[[ 0.25865436  0.36202288  0.43854596  0.          0.76138072  0.
+   0.71066927  0.          0.52236524  0.117362    0.59165777 -0.34815925]
+ [ 0.83905375  0.90734645  0.95890878  0.          0.20464956  0.
+  -0.31169972  0.          0.10669869  0.48902297  0.07946937 -0.00873976]
+ [ 0.23405012  0.35558928  0.2955645   0.          0.1057484   0.
+   0.14111261  0.          0.08351198  0.11830039  0.16869484  0.05990648]
+ [ 0.2689515   0.30581916  0.34328497  0.          0.20255297  0.
+   0.27738715  0.          0.0961019   0.09152246  0.13332842  0.31159857]]
+Policy matrix after 23001 iterations:
+ &gt;   &gt;   &gt;   *  
+ ^   #   ^   *  
+ ^   &gt;   ^   &lt;  
+
+Traceback (most recent call last):
+  File &quot;/content/drive/MyDrive/dissecting-reinforcement-learning/src/3/temporal_differencing_control_qlearning.py&quot;, line 230, in &lt;module&gt;
+    main()
+  File &quot;/content/drive/MyDrive/dissecting-reinforcement-learning/src/3/temporal_differencing_control_qlearning.py&quot;, line 200, in main
+    action = np.random.randint(0, 4)
+KeyboardInterrupt
+^C
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">sys</span>
+<span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;/content/drive/MyDrive/dissecting-reinforcement-learning/src/3/&#39;</span><span class="p">)</span>
+
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">from</span> <span class="nn">temporal_differencing_control_qlearning</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+    <span class="n">env</span> <span class="o">=</span> <span class="n">GridWorld</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
+
+    <span class="c1"># Define matrices (state, reward, transition, policy, etc.)</span>
+    <span class="n">state_matrix</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">))</span>
+    <span class="n">state_matrix</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="n">state_matrix</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="n">state_matrix</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+    <span class="n">reward_matrix</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">full</span><span class="p">((</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">),</span> <span class="o">-</span><span class="mf">0.04</span><span class="p">)</span>
+    <span class="n">reward_matrix</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="n">reward_matrix</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+    <span class="n">transition_matrix</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mf">0.8</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">],</span>
+                                  <span class="p">[</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.8</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">],</span>
+                                  <span class="p">[</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.8</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">],</span>
+                                  <span class="p">[</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.8</span><span class="p">]])</span>
+
+    <span class="c1"># Random policy</span>
+    <span class="n">policy_matrix</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="n">low</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">high</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
+    <span class="n">policy_matrix</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">NaN</span>
+    <span class="n">policy_matrix</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="n">policy_matrix</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+
+    <span class="n">exploratory_policy_matrix</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span>      <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">],</span>
+                                          <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">NaN</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">],</span>
+                                          <span class="p">[</span><span class="mi">0</span><span class="p">,</span>      <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span>  <span class="mi">3</span><span class="p">]])</span>
+
+    <span class="n">env</span><span class="o">.</span><span class="n">setStateMatrix</span><span class="p">(</span><span class="n">state_matrix</span><span class="p">)</span>
+    <span class="n">env</span><span class="o">.</span><span class="n">setRewardMatrix</span><span class="p">(</span><span class="n">reward_matrix</span><span class="p">)</span>
+    <span class="n">env</span><span class="o">.</span><span class="n">setTransitionMatrix</span><span class="p">(</span><span class="n">transition_matrix</span><span class="p">)</span>
+
+    <span class="n">state_action_matrix</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">4</span><span class="p">,</span><span class="mi">12</span><span class="p">))</span>
+    <span class="n">visit_counter_matrix</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">4</span><span class="p">,</span><span class="mi">12</span><span class="p">))</span>
+    <span class="n">gamma</span> <span class="o">=</span> <span class="mf">0.999</span>
+    <span class="n">alpha</span> <span class="o">=</span> <span class="mf">0.001</span>
+    <span class="n">tot_epoch</span> <span class="o">=</span> <span class="mi">50000</span>
+    <span class="n">print_epoch</span> <span class="o">=</span> <span class="mi">1000</span>
+
+    <span class="c1"># To store the history of state-action matrix for plotting</span>
+    <span class="n">state_action_history</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">tot_epoch</span><span class="o">//</span><span class="n">print_epoch</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">12</span><span class="p">))</span>
+
+    <span class="k">for</span> <span class="n">epoch</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">tot_epoch</span><span class="p">):</span>
+        <span class="n">observation</span> <span class="o">=</span> <span class="n">env</span><span class="o">.</span><span class="n">reset</span><span class="p">(</span><span class="n">exploring_starts</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">epsilon</span> <span class="o">=</span> <span class="n">return_decayed_value</span><span class="p">(</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">epoch</span><span class="p">,</span> <span class="n">decay_step</span><span class="o">=</span><span class="mi">50000</span><span class="p">)</span>
+        <span class="n">is_starting</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="k">for</span> <span class="n">step</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1000</span><span class="p">):</span>
+            <span class="n">action</span> <span class="o">=</span> <span class="n">return_epsilon_greedy_action</span><span class="p">(</span><span class="n">exploratory_policy_matrix</span><span class="p">,</span> <span class="n">observation</span><span class="p">,</span> <span class="n">epsilon</span><span class="o">=</span><span class="mf">0.001</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">is_starting</span><span class="p">:</span>
+                <span class="n">action</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
+                <span class="n">is_starting</span> <span class="o">=</span> <span class="kc">False</span>
+            <span class="n">new_observation</span><span class="p">,</span> <span class="n">reward</span><span class="p">,</span> <span class="n">done</span> <span class="o">=</span> <span class="n">env</span><span class="o">.</span><span class="n">step</span><span class="p">(</span><span class="n">action</span><span class="p">)</span>
+            <span class="n">state_action_matrix</span> <span class="o">=</span> <span class="n">update_state_action</span><span class="p">(</span><span class="n">state_action_matrix</span><span class="p">,</span> <span class="n">visit_counter_matrix</span><span class="p">,</span> <span class="n">observation</span><span class="p">,</span> <span class="n">new_observation</span><span class="p">,</span>
+                                                      <span class="n">action</span><span class="p">,</span> <span class="n">reward</span><span class="p">,</span> <span class="n">alpha</span><span class="p">,</span> <span class="n">gamma</span><span class="p">)</span>
+            <span class="n">policy_matrix</span> <span class="o">=</span> <span class="n">update_policy</span><span class="p">(</span><span class="n">policy_matrix</span><span class="p">,</span> <span class="n">state_action_matrix</span><span class="p">,</span> <span class="n">observation</span><span class="p">)</span>
+            <span class="n">visit_counter_matrix</span> <span class="o">=</span> <span class="n">update_visit_counter</span><span class="p">(</span><span class="n">visit_counter_matrix</span><span class="p">,</span> <span class="n">observation</span><span class="p">,</span> <span class="n">action</span><span class="p">)</span>
+            <span class="n">observation</span> <span class="o">=</span> <span class="n">new_observation</span>
+            <span class="k">if</span> <span class="n">done</span><span class="p">:</span> <span class="k">break</span>
+
+        <span class="c1"># Store state-action matrix periodically for plotting</span>
+        <span class="k">if</span> <span class="n">epoch</span> <span class="o">%</span> <span class="n">print_epoch</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">state_action_history</span><span class="p">[</span><span class="n">epoch</span><span class="o">//</span><span class="n">print_epoch</span><span class="p">]</span> <span class="o">=</span> <span class="n">state_action_matrix</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Epsilon: &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">epsilon</span><span class="p">))</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;State-Action matrix after &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">epoch</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot; iterations:&quot;</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="n">state_action_matrix</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Policy matrix after &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">epoch</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot; iterations:&quot;</span><span class="p">)</span>
+            <span class="n">print_policy</span><span class="p">(</span><span class="n">policy_matrix</span><span class="p">)</span>
+
+
+    <span class="c1"># Time to plot the state-action matrix entries over time</span>
+    <span class="n">epochs</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">tot_epoch</span><span class="p">,</span> <span class="n">print_epoch</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">4</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">12</span><span class="p">):</span>
+            <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">epochs</span><span class="p">,</span> <span class="n">state_action_history</span><span class="p">[:,</span> <span class="n">row</span><span class="p">,</span> <span class="n">col</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;Entry (</span><span class="si">{</span><span class="n">row</span><span class="si">}</span><span class="s2">,</span><span class="si">{</span><span class="n">col</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">)</span>
+
+    <span class="n">plt</span><span class="o">.</span><span class="n">yscale</span><span class="p">(</span><span class="s1">&#39;log&#39;</span><span class="p">)</span>  <span class="c1"># Apply logarithmic scale to the y-axis</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s2">&quot;Epochs&quot;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s2">&quot;Q(s,a)&quot;</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;State-Action Matrix Entries Trend Over Time (Log Scale)&quot;</span><span class="p">)</span>
+
+    <span class="c1"># Set y-ticks for better visualization (adjust based on value range)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">yticks</span><span class="p">([</span><span class="mf">1e-5</span><span class="p">,</span> <span class="mf">1e-4</span><span class="p">,</span> <span class="mf">1e-3</span><span class="p">,</span> <span class="mf">1e-2</span><span class="p">,</span> <span class="mf">1e-1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">10</span><span class="p">])</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">gca</span><span class="p">()</span><span class="o">.</span><span class="n">get_yaxis</span><span class="p">()</span><span class="o">.</span><span class="n">set_major_formatter</span><span class="p">(</span><span class="n">plt</span><span class="o">.</span><span class="n">ScalarFormatter</span><span class="p">())</span>
+
+    <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="s2">&quot;best&quot;</span><span class="p">,</span> <span class="n">bbox_to_anchor</span><span class="o">=</span><span class="p">(</span><span class="mf">1.05</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">ncol</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Epsilon: 0.1
+State-Action matrix after 1 iterations:
+[[ 0.000e+00  0.000e+00  0.000e+00  0.000e+00 -7.996e-05  0.000e+00
+   0.000e+00  0.000e+00 -4.000e-05  0.000e+00  0.000e+00  0.000e+00]
+ [-7.996e-05 -4.000e-05  1.000e-03  0.000e+00  0.000e+00  0.000e+00
+   0.000e+00  0.000e+00 -4.000e-05  0.000e+00  0.000e+00  0.000e+00]
+ [ 0.000e+00  0.000e+00  0.000e+00  0.000e+00  0.000e+00  0.000e+00
+   0.000e+00  0.000e+00  0.000e+00  0.000e+00  0.000e+00  0.000e+00]
+ [ 0.000e+00  0.000e+00  0.000e+00  0.000e+00  0.000e+00  0.000e+00
+   0.000e+00  0.000e+00  0.000e+00  0.000e+00  0.000e+00  0.000e+00]]
+Policy matrix after 1 iterations:
+ ^   ^   &gt;   *  
+ &gt;   #   &lt;   *  
+ v   v   v   &gt;  
+
+
+Epsilon: 0.0954992586021436
+State-Action matrix after 1001 iterations:
+[[-9.63629290e-04  1.95379019e-04  7.15711050e-03  0.00000000e+00
+  -1.15371632e-02  0.00000000e+00  6.21373646e-02  0.00000000e+00
+  -5.59987299e-03 -1.11669203e-03 -8.72411422e-03 -2.29303942e-02]
+ [-2.55985707e-03  1.06082303e-01  5.51855517e-01  0.00000000e+00
+  -1.07706192e-03  0.00000000e+00 -2.02842567e-02  0.00000000e+00
+  -1.11725027e-03 -8.01952806e-03 -1.27404709e-03 -3.33302279e-03]
+ [-1.11196913e-03  2.98466714e-04  2.49579279e-03  0.00000000e+00
+  -1.19665386e-03  0.00000000e+00 -4.00535729e-03  0.00000000e+00
+  -8.80070838e-04 -1.11922914e-03 -1.47350836e-03 -6.39915401e-04]
+ [-1.15940705e-03 -1.15515241e-03 -7.71681869e-06  0.00000000e+00
+  -1.00002828e-03  0.00000000e+00  1.25901461e-03  0.00000000e+00
+  -1.15440420e-03 -9.97884375e-04 -1.22788559e-03 -1.96676156e-02]]
+Policy matrix after 1001 iterations:
+ ^   &gt;   &gt;   *  
+ &lt;   #   ^   *  
+ v   &lt;   &lt;   v  
+
+
+Epsilon: 0.09120108393559098
+State-Action matrix after 2001 iterations:
+[[-1.28625666e-03  6.48032456e-03  2.40917510e-02  0.00000000e+00
+  -1.59918596e-02  0.00000000e+00  2.23350275e-01  0.00000000e+00
+  -1.12896669e-02 -2.06300271e-03  1.91146359e-02 -4.61604397e-02]
+ [ 4.06437038e-02  2.93370473e-01  7.63158137e-01  0.00000000e+00
+  -2.30287593e-03  0.00000000e+00 -4.91182417e-02  0.00000000e+00
+  -2.15328193e-03 -1.39248372e-02 -2.05263642e-03 -6.31040405e-03]
+ [-1.65015038e-03  6.14133654e-03  1.07755292e-02  0.00000000e+00
+  -2.58068615e-03  0.00000000e+00 -4.93958396e-03  0.00000000e+00
+  -2.04002908e-03 -2.53669031e-03 -2.49967470e-03 -1.26779897e-03]
+ [-1.76553022e-03 -5.02873075e-04  6.40344042e-03  0.00000000e+00
+  -2.05900345e-03  0.00000000e+00  5.43895415e-03  0.00000000e+00
+  -2.34717803e-03 -2.27544673e-03 -1.95503706e-03 -3.53669389e-02]]
+Policy matrix after 2001 iterations:
+ &gt;   &gt;   &gt;   *  
+ &lt;   #   ^   *  
+ v   ^   ^   v  
+
+
+Epsilon: 0.08709635899560808
+State-Action matrix after 3001 iterations:
+[[ 2.54439104e-04  1.56769885e-02  4.86093106e-02  0.00000000e+00
+  -6.00074883e-03  0.00000000e+00  3.68722120e-01  0.00000000e+00
+  -1.52320179e-02 -2.81866190e-03  8.35493861e-02 -6.58732689e-02]
+ [ 1.18892517e-01  4.57010101e-01  8.61769399e-01  0.00000000e+00
+  -3.21845534e-03  0.00000000e+00 -6.60776308e-02  0.00000000e+00
+  -3.22940288e-03 -1.06343178e-02 -2.45176979e-03 -7.36782497e-03]
+ [-1.13242357e-03  1.36190214e-02  2.05120619e-02  0.00000000e+00
+  -3.37102701e-03  0.00000000e+00 -9.01579219e-03  0.00000000e+00
+  -2.96003704e-03 -3.34165426e-03 -2.54904326e-03 -2.57338559e-03]
+ [-7.09841193e-04  2.15926970e-03  1.80209769e-02  0.00000000e+00
+  -2.74963642e-03  0.00000000e+00  1.32244600e-02  0.00000000e+00
+  -3.29941232e-03 -3.38931125e-03 -1.02849229e-03 -4.91966123e-02]]
+Policy matrix after 3001 iterations:
+ &gt;   &gt;   &gt;   *  
+ &lt;   #   ^   *  
+ v   ^   ^   v  
+
+
+Epsilon: 0.0831763771102671
+State-Action matrix after 4001 iterations:
+[[ 5.27249071e-03  2.69030995e-02  7.34503682e-02  0.00000000e+00
+   2.61661089e-02  0.00000000e+00  4.75833574e-01  0.00000000e+00
+  -1.80561029e-02 -3.92380727e-03  1.58997306e-01 -7.84412058e-02]
+ [ 2.21771083e-01  5.97032083e-01  9.05156553e-01  0.00000000e+00
+  -3.80518606e-03  0.00000000e+00 -7.94076416e-02  0.00000000e+00
+  -4.62242175e-03  6.01580264e-03 -2.02176737e-03 -9.19685542e-03]
+ [ 6.71399037e-05  2.54385551e-02  3.08556738e-02  0.00000000e+00
+  -4.41878703e-03  0.00000000e+00 -6.08559061e-03  0.00000000e+00
+  -4.13989719e-03 -4.06293006e-03 -7.48309296e-04 -3.53331279e-03]
+ [ 2.80010490e-03  6.67942891e-03  3.01156569e-02  0.00000000e+00
+  -3.02547275e-03  0.00000000e+00  2.31802181e-02  0.00000000e+00
+  -4.32425563e-03 -4.52190549e-03 -1.22343065e-03 -4.89809956e-02]]
+Policy matrix after 4001 iterations:
+ &gt;   &gt;   &gt;   *  
+ ^   #   ^   *  
+ v   &gt;   ^   v  
+
+
+Epsilon: 0.07943282347242815
+State-Action matrix after 5001 iterations:
+[[ 1.43604550e-02  4.69334260e-02  9.73041168e-02  0.00000000e+00
+   7.40035502e-02  0.00000000e+00  5.64581153e-01  0.00000000e+00
+  -1.50418626e-02 -4.02261560e-03  2.31795721e-01 -1.03140605e-01]
+ [ 3.18270497e-01  6.94798350e-01  9.28066594e-01  0.00000000e+00
+  -3.46006078e-03  0.00000000e+00 -9.47262647e-02  0.00000000e+00
+  -5.08319164e-03  2.63736934e-02  8.17881195e-04 -1.28659955e-02]
+ [ 2.18293718e-03  4.08253887e-02  4.83647086e-02  0.00000000e+00
+  -5.52641615e-03  0.00000000e+00 -6.15704200e-03  0.00000000e+00
+  -5.01093583e-03 -4.76850263e-03  2.79447813e-03 -4.05544109e-03]
+ [ 7.55295322e-03  1.42240419e-02  4.26369012e-02  0.00000000e+00
+  -1.98180198e-03  0.00000000e+00  3.76160339e-02  0.00000000e+00
+  -5.55819445e-03 -5.66599925e-03 -4.01700919e-04 -4.63582169e-02]]
+Policy matrix after 5001 iterations:
+ &gt;   &gt;   &gt;   *  
+ ^   #   ^   *  
+ v   &gt;   ^   v  
+
+
+Epsilon: 0.07585775750291839
+State-Action matrix after 6001 iterations:
+[[ 2.65930643e-02  6.28878306e-02  1.22083256e-01  0.00000000e+00
+   1.26857477e-01  0.00000000e+00  6.14110825e-01  0.00000000e+00
+  -6.50767549e-03 -3.57750712e-03  2.98665160e-01 -1.25702474e-01]
+ [ 4.11107450e-01  7.63107151e-01  9.38557459e-01  0.00000000e+00
+  -1.63319892e-03  0.00000000e+00 -1.21682715e-01  0.00000000e+00
+  -5.04884162e-03  5.87794323e-02  1.79797473e-03 -1.57848899e-02]
+ [ 4.45534924e-03  5.82660477e-02  6.19439900e-02  0.00000000e+00
+  -5.95769764e-03  0.00000000e+00 -1.91385275e-03  0.00000000e+00
+  -5.92348346e-03 -4.47352453e-03  7.66454536e-03 -4.60193608e-03]
+ [ 1.51635914e-02  3.08154416e-02  6.21648366e-02  0.00000000e+00
+   1.28226810e-04  0.00000000e+00  5.16173805e-02  0.00000000e+00
+  -6.23778966e-03 -6.33711040e-03  8.39761916e-04 -2.58380223e-02]]
+Policy matrix after 6001 iterations:
+ &gt;   &gt;   &gt;   *  
+ ^   #   ^   *  
+ &gt;   &gt;   ^   v  
+
+
+Epsilon: 0.072443596007499
+State-Action matrix after 7001 iterations:
+[[ 3.58043203e-02  8.49238380e-02  1.40766952e-01  0.00000000e+00
+   1.89472200e-01  0.00000000e+00  6.43052865e-01  0.00000000e+00
+   6.01617937e-03 -2.38529203e-03  3.60810722e-01 -1.41185379e-01]
+ [ 4.93951285e-01  8.09845416e-01  9.43274743e-01  0.00000000e+00
+   1.62625719e-03  0.00000000e+00 -1.29278894e-01  0.00000000e+00
+  -3.83785790e-03  9.22543777e-02  3.00269636e-03 -1.82521814e-02]
+ [ 1.18916478e-02  7.86811790e-02  7.70094901e-02  0.00000000e+00
+  -6.05844549e-03  0.00000000e+00  8.78370472e-04  0.00000000e+00
+  -6.50388078e-03 -2.43753909e-03  1.41662681e-02 -4.20820213e-03]
+ [ 2.53134775e-02  4.43747900e-02  8.41224962e-02  0.00000000e+00
+   4.46270405e-03  0.00000000e+00  6.91439726e-02  0.00000000e+00
+  -6.77998326e-03 -6.52620182e-03  3.74302230e-03 -1.00215483e-02]]
+Policy matrix after 7001 iterations:
+ &gt;   &gt;   &gt;   *  
+ ^   #   ^   *  
+ ^   &gt;   ^   v  
+
+
+Epsilon: 0.06918309709189366
+State-Action matrix after 8001 iterations:
+[[ 4.63962172e-02  9.98546460e-02  1.54164763e-01  0.00000000e+00
+   2.55356683e-01  0.00000000e+00  6.75731758e-01  0.00000000e+00
+   2.72942248e-02  7.23329320e-04  4.05449306e-01 -1.59202623e-01]
+ [ 5.63741209e-01  8.40642788e-01  9.51484438e-01  0.00000000e+00
+   6.83338380e-03  0.00000000e+00 -1.43868674e-01  0.00000000e+00
+  -1.62966478e-03  1.36137390e-01  4.80701111e-03 -2.35745411e-02]
+ [ 1.74201229e-02  1.03807971e-01  9.28256133e-02  0.00000000e+00
+  -5.70274180e-03  0.00000000e+00  8.25058228e-03  0.00000000e+00
+  -6.39028446e-03  2.07943453e-03  1.90572527e-02 -3.12801245e-03]
+ [ 3.69645488e-02  5.85188942e-02  1.05820076e-01  0.00000000e+00
+   7.27518246e-03  0.00000000e+00  8.35529400e-02  0.00000000e+00
+  -7.00241877e-03 -6.78300485e-03  8.98564450e-03  1.49466095e-02]]
+Policy matrix after 8001 iterations:
+ &gt;   &gt;   &gt;   *  
+ ^   #   ^   *  
+ ^   &gt;   ^   &lt;  
+
+
+Epsilon: 0.0660693448007596
+State-Action matrix after 9001 iterations:
+[[ 0.05675498  0.1202564   0.18010272  0.          0.32610565  0.
+   0.69634666  0.          0.05518221  0.00327895  0.43823876 -0.16999523]
+ [ 0.62450463  0.86174683  0.9504368   0.          0.01313574  0.
+  -0.16086423  0.          0.00195881  0.17080778  0.00728962 -0.02514166]
+ [ 0.02704962  0.12166048  0.1096422   0.         -0.00429964  0.
+   0.01930821  0.         -0.00599836  0.00588894  0.02801248 -0.00280116]
+ [ 0.05039914  0.07612816  0.12461128  0.          0.0148557   0.
+   0.09737984  0.         -0.0049983  -0.00611836  0.01348743  0.05555279]]
+Policy matrix after 9001 iterations:
+ &gt;   &gt;   &gt;   *  
+ ^   #   ^   *  
+ ^   &gt;   ^   &lt;  
+
+
+Epsilon: 0.06309573444801933
+State-Action matrix after 10001 iterations:
+[[ 0.07682173  0.14095458  0.19897891  0.          0.39154291  0.
+   0.69232341  0.          0.08744089  0.00841381  0.473577   -0.18473929]
+ [ 0.67008138  0.87746207  0.95905778  0.          0.01986061  0.
+  -0.16798054  0.          0.00566403  0.20974615  0.01042171 -0.02583252]
+ [ 0.03356835  0.14028043  0.122955    0.         -0.00199698  0.
+   0.02661641  0.         -0.00406582  0.01185648  0.03486232 -0.00159714]
+ [ 0.06792139  0.09101347  0.14800647  0.          0.02232799  0.
+   0.11454767  0.         -0.00320297 -0.00412332  0.01931666  0.09076179]]
+Policy matrix after 10001 iterations:
+ &gt;   &gt;   &gt;   *  
+ ^   #   ^   *  
+ ^   &gt;   ^   &lt;  
+
+
+Epsilon: 0.06025595860743578
+State-Action matrix after 11001 iterations:
+[[ 9.24014884e-02  1.59740445e-01  2.21729533e-01  0.00000000e+00
+   4.50471279e-01  0.00000000e+00  7.02427184e-01  0.00000000e+00
+   1.23960614e-01  1.40291151e-02  4.99086565e-01 -1.95178207e-01]
+ [ 7.08131019e-01  8.87878475e-01  9.54618320e-01  0.00000000e+00
+   2.99635245e-02  0.00000000e+00 -1.74684337e-01  0.00000000e+00
+   1.05750167e-02  2.52694128e-01  1.48271748e-02 -2.77057589e-02]
+ [ 4.42477219e-02  1.59362578e-01  1.36349282e-01  0.00000000e+00
+   1.02678893e-03  0.00000000e+00  3.84739320e-02  0.00000000e+00
+  -2.42374533e-03  1.76212677e-02  4.38083610e-02  1.36749629e-03]
+ [ 8.30092252e-02  1.06404440e-01  1.62138774e-01  0.00000000e+00
+   3.53568221e-02  0.00000000e+00  1.28163482e-01  0.00000000e+00
+   3.66185134e-04 -1.21565503e-03  2.80171956e-02  1.21502951e-01]]
+Policy matrix after 11001 iterations:
+ &gt;   &gt;   &gt;   *  
+ ^   #   ^   *  
+ ^   &gt;   ^   &lt;  
+
+
+Epsilon: 0.057543993733715694
+State-Action matrix after 12001 iterations:
+[[ 1.09666046e-01  1.81486094e-01  2.46195942e-01  0.00000000e+00
+   5.02302798e-01  0.00000000e+00  7.07639443e-01  0.00000000e+00
+   1.57545597e-01  1.83641273e-02  5.18547990e-01 -2.15597492e-01]
+ [ 7.39011689e-01  8.95184385e-01  9.56742948e-01  0.00000000e+00
+   3.98388544e-02  0.00000000e+00 -1.94245868e-01  0.00000000e+00
+   1.69958276e-02  2.84153690e-01  1.83812530e-02 -2.76040179e-02]
+ [ 5.71268748e-02  1.76854354e-01  1.54650892e-01  0.00000000e+00
+   5.03761192e-03  0.00000000e+00  3.90552038e-02  0.00000000e+00
+   5.59099348e-04  2.30902848e-02  5.22437264e-02  3.58591937e-03]
+ [ 1.04450848e-01  1.28357254e-01  1.77215593e-01  0.00000000e+00
+   4.62422599e-02  0.00000000e+00  1.45795206e-01  0.00000000e+00
+   4.67731420e-03  1.45695229e-03  3.61021423e-02  1.41908995e-01]]
+Policy matrix after 12001 iterations:
+ &gt;   &gt;   &gt;   *  
+ ^   #   ^   *  
+ ^   &gt;   ^   &lt;  
+
+
+Epsilon: 0.054954087385762455
+State-Action matrix after 13001 iterations:
+[[ 0.12608078  0.19821899  0.26493145  0.          0.54919963  0.
+   0.70485763  0.          0.19577192  0.02299666  0.53461034 -0.22652711]
+ [ 0.76126956  0.89909721  0.95783004  0.          0.05121361  0.
+  -0.20593538  0.          0.02386441  0.31630244  0.02562152 -0.02757054]
+ [ 0.07188911  0.19426837  0.16921598  0.          0.01179774  0.
+   0.04813678  0.          0.00374692  0.03021581  0.06376232  0.00826181]
+ [ 0.12253143  0.14857573  0.19691177  0.          0.05482645  0.
+   0.15597103  0.          0.00968572  0.008097    0.04500037  0.16512978]]
+Policy matrix after 13001 iterations:
+ &gt;   &gt;   &gt;   *  
+ ^   #   ^   *  
+ ^   &gt;   ^   &lt;  
+
+
+Epsilon: 0.05248074602497726
+State-Action matrix after 14001 iterations:
+[[ 0.14111247  0.21323424  0.27977798  0.          0.58747359  0.
+   0.69302465  0.          0.22812247  0.02980393  0.54394724 -0.23778629]
+ [ 0.77657613  0.9022658   0.95693306  0.          0.06204135  0.
+  -0.21797248  0.          0.03241395  0.3475632   0.03288356 -0.02312504]
+ [ 0.08738267  0.21281722  0.18185492  0.          0.01870802  0.
+   0.05929595  0.          0.00841635  0.03775053  0.0756381   0.01264574]
+ [ 0.14006541  0.16296097  0.21777641  0.          0.06768797  0.
+   0.1757725   0.          0.01539482  0.01356354  0.05553266  0.18610381]]
+Policy matrix after 14001 iterations:
+ &gt;   &gt;   &gt;   *  
+ ^   #   ^   *  
+ ^   &gt;   ^   &lt;  
+
+
+Epsilon: 0.05011872336272724
+State-Action matrix after 15001 iterations:
+[[ 0.15936844  0.22825252  0.29613118  0.          0.62109951  0.
+   0.68413781  0.          0.26459078  0.03907591  0.54503597 -0.25282117]
+ [ 0.79077695  0.90334984  0.95661372  0.          0.07439809  0.
+  -0.22718135  0.          0.039173    0.37292075  0.03739332 -0.02213248]
+ [ 0.10264304  0.23145906  0.19564601  0.          0.02324088  0.
+   0.06878605  0.          0.01446353  0.04561035  0.09030422  0.01821337]
+ [ 0.1562241   0.17892494  0.23526366  0.          0.07730311  0.
+   0.19037998  0.          0.02062824  0.01833502  0.06501818  0.20788093]]
+Policy matrix after 15001 iterations:
+ &gt;   &gt;   &gt;   *  
+ ^   #   ^   *  
+ ^   &gt;   ^   &lt;  
+
+
+Epsilon: 0.04786300923226384
+State-Action matrix after 16001 iterations:
+[[ 0.17791531  0.24890932  0.30900176  0.          0.65067854  0.
+   0.68175642  0.          0.30468967  0.04679022  0.55554727 -0.26431929]
+ [ 0.80316667  0.90419096  0.95505931  0.          0.08845769  0.
+  -0.23612327  0.          0.04829594  0.39593337  0.04260509 -0.01901982]
+ [ 0.11930709  0.24329319  0.20795229  0.          0.03084634  0.
+   0.07773683  0.          0.02088452  0.0546798   0.10023519  0.0233984 ]
+ [ 0.17637999  0.19078795  0.24886861  0.          0.0887203   0.
+   0.19884053  0.          0.03051708  0.02614928  0.07402567  0.2258048 ]]
+Policy matrix after 16001 iterations:
+ &gt;   &gt;   &gt;   *  
+ ^   #   ^   *  
+ ^   &gt;   ^   &lt;  
+
+
+Epsilon: 0.045708818961487506
+State-Action matrix after 17001 iterations:
+[[ 0.19723812  0.26529017  0.32463006  0.          0.67544905  0.
+   0.68448618  0.          0.33884399  0.05812685  0.56325817 -0.2690142 ]
+ [ 0.81174194  0.90383512  0.95313849  0.          0.1047149   0.
+  -0.25084093  0.          0.05833249  0.41564909  0.04699671 -0.01685404]
+ [ 0.13383672  0.25889227  0.22718972  0.          0.03936633  0.
+   0.08464609  0.          0.02939999  0.06289395  0.11193551  0.02846902]
+ [ 0.1890791   0.20153813  0.26616252  0.          0.10371724  0.
+   0.20957912  0.          0.03729404  0.03310807  0.08372556  0.24438167]]
+Policy matrix after 17001 iterations:
+ &gt;   &gt;   &gt;   *  
+ ^   #   ^   *  
+ ^   &gt;   ^   &lt;  
+
+
+Epsilon: 0.043651583224016605
+State-Action matrix after 18001 iterations:
+[[ 0.21594785  0.28385751  0.34517929  0.          0.69736679  0.
+   0.66193823  0.          0.37721163  0.06730491  0.56569766 -0.27776654]
+ [ 0.81764116  0.90349685  0.95367079  0.          0.12010372  0.
+  -0.26410176  0.          0.07258075  0.43143194  0.05692333 -0.01462794]
+ [ 0.14306576  0.27018559  0.24088085  0.          0.04917982  0.
+   0.09216785  0.          0.0375195   0.07326195  0.12322132  0.03325306]
+ [ 0.20386256  0.21760462  0.28523664  0.          0.11738138  0.
+   0.22256398  0.          0.04618508  0.04287333  0.09337814  0.25476158]]
+Policy matrix after 18001 iterations:
+ &gt;   &gt;   &gt;   *  
+ ^   #   ^   *  
+ ^   &gt;   ^   &lt;  
+
+
+Epsilon: 0.04168693834703355
+State-Action matrix after 19001 iterations:
+[[ 0.23177005  0.2990934   0.35907901  0.          0.71574115  0.
+   0.65665457  0.          0.40890574  0.07288022  0.56049337 -0.2917894 ]
+ [ 0.82418022  0.90385251  0.95560919  0.          0.1351997   0.
+  -0.27511876  0.          0.08262064  0.44450562  0.06281576 -0.00797061]
+ [ 0.1585601   0.28315919  0.25034677  0.          0.05528027  0.
+   0.10028032  0.          0.04639105  0.08055047  0.13405801  0.03866667]
+ [ 0.22235485  0.23299192  0.30657628  0.          0.1405435   0.
+   0.23230004  0.          0.0590428   0.05038434  0.10228525  0.2736891 ]]
+Policy matrix after 19001 iterations:
+ &gt;   &gt;   &gt;   *  
+ ^   #   ^   *  
+ ^   &gt;   ^   &lt;  
+
+
+Epsilon: 0.03981071705534973
+State-Action matrix after 20001 iterations:
+[[ 0.24885017  0.31827035  0.37377193  0.          0.72999917  0.
+   0.67263032  0.          0.43878568  0.08295743  0.56191716 -0.3091015 ]
+ [ 0.82888898  0.90380921  0.955557    0.          0.14972824  0.
+  -0.28187747  0.          0.08956094  0.45414073  0.06906029  0.00153436]
+ [ 0.17007704  0.29722858  0.2611316   0.          0.06824686  0.
+   0.1064357   0.          0.053186    0.09158121  0.14456296  0.04545857]
+ [ 0.23881588  0.24533873  0.3158676   0.          0.15704977  0.
+   0.24148929  0.          0.0688093   0.0603692   0.11082901  0.29102839]]
+Policy matrix after 20001 iterations:
+ &gt;   &gt;   &gt;   *  
+ ^   #   ^   *  
+ ^   &gt;   ^   &lt;  
+
+
+Epsilon: 0.038018939632056124
+State-Action matrix after 21001 iterations:
+[[ 0.26622563  0.33271856  0.38800385  0.          0.74194245  0.
+   0.67793691  0.          0.46731234  0.09185723  0.56843222 -0.32173526]
+ [ 0.83229676  0.90448377  0.95685015  0.          0.16320098  0.
+  -0.29970376  0.          0.096924    0.4636463   0.07808825  0.00826077]
+ [ 0.18568458  0.30833995  0.27419373  0.          0.08174843  0.
+   0.117023    0.          0.05854887  0.10356226  0.15374004  0.05309985]
+ [ 0.24964425  0.25365785  0.33725622  0.          0.167663    0.
+   0.25118942  0.          0.08119078  0.06671655  0.12143535  0.29780704]]
+Policy matrix after 21001 iterations:
+ &gt;   &gt;   &gt;   *  
+ ^   #   ^   *  
+ ^   &gt;   ^   &lt;  
+
+
+Epsilon: 0.03630780547701014
+State-Action matrix after 22001 iterations:
+[[ 0.2757606   0.348594    0.4047021   0.          0.75152943  0.
+   0.69554856  0.          0.49379965  0.10062905  0.57395593 -0.33451139]
+ [ 0.83418504  0.9055797   0.9581588   0.          0.17987842  0.
+  -0.30009493  0.          0.1021767   0.47310191  0.08269435  0.013103  ]
+ [ 0.1994279   0.33100749  0.28576398  0.          0.09292364  0.
+   0.11958498  0.          0.07230537  0.11292959  0.16371446  0.05925469]
+ [ 0.26252018  0.27046271  0.35075124  0.          0.18053127  0.
+   0.26358983  0.          0.09134407  0.07949788  0.13324134  0.31268513]]
+Policy matrix after 22001 iterations:
+ &gt;   &gt;   &gt;   *  
+ ^   #   ^   *  
+ ^   &gt;   ^   &lt;  
+
+
+Epsilon: 0.034673685045253165
+State-Action matrix after 23001 iterations:
+[[ 0.28785154  0.3602368   0.42713566  0.          0.75956108  0.
+   0.70019477  0.          0.52049276  0.11073556  0.58250768 -0.34543071]
+ [ 0.83781568  0.90571689  0.95767719  0.          0.1963435   0.
+  -0.32193775  0.          0.10885038  0.48209873  0.09128436  0.01695627]
+ [ 0.21613138  0.34734355  0.29621968  0.          0.10677072  0.
+   0.12899338  0.          0.08616077  0.11961649  0.17315408  0.06419292]
+ [ 0.27758839  0.2811347   0.36227384  0.          0.19593252  0.
+   0.27397143  0.          0.10173294  0.09227433  0.14353076  0.31789472]]
+Policy matrix after 23001 iterations:
+ &gt;   &gt;   &gt;   *  
+ ^   #   ^   *  
+ ^   &gt;   ^   &lt;  
+
+
+Epsilon: 0.03311311214825911
+State-Action matrix after 24001 iterations:
+[[ 0.30263929  0.37799895  0.43590977  0.          0.76728717  0.
+   0.7117112   0.          0.54263294  0.12264086  0.59325466 -0.35890756]
+ [ 0.8410684   0.90587961  0.95665932  0.          0.21588066  0.
+  -0.33737296  0.          0.11798362  0.49121793  0.09771533  0.02042634]
+ [ 0.22928715  0.35856901  0.30831524  0.          0.11822139  0.
+   0.1352105   0.          0.09758433  0.13034294  0.18077406  0.07056043]
+ [ 0.29377622  0.28941299  0.37588321  0.          0.20822808  0.
+   0.28278687  0.          0.11231994  0.10151849  0.14873375  0.32317887]]
+Policy matrix after 24001 iterations:
+ &gt;   &gt;   &gt;   *  
+ ^   #   ^   *  
+ ^   &gt;   ^   &lt;  
+
+
+Epsilon: 0.0316227766016838
+State-Action matrix after 25001 iterations:
+[[ 0.31562654  0.38862608  0.44914704  0.          0.77331517  0.
+   0.71748845  0.          0.56410849  0.13079161  0.59907782 -0.36842685]
+ [ 0.84271203  0.9058228   0.96101949  0.          0.22951181  0.
+  -0.33981038  0.          0.12571371  0.50012152  0.10644886  0.02315228]
+ [ 0.24410619  0.37283469  0.32303071  0.          0.12749149  0.
+   0.1447685   0.          0.10769703  0.13946279  0.18948022  0.07706925]
+ [ 0.30460811  0.30037095  0.38720914  0.          0.22521324  0.
+   0.29466534  0.          0.12617143  0.11242116  0.15916699  0.33165743]]
+Policy matrix after 25001 iterations:
+ &gt;   &gt;   &gt;   *  
+ ^   #   ^   *  
+ ^   &gt;   ^   &lt;  
+
+
+Epsilon: 0.03019951720402016
+State-Action matrix after 26001 iterations:
+[[ 0.33315203  0.40431715  0.46022092  0.          0.77750814  0.
+   0.73058198  0.          0.58181891  0.13984453  0.60593979 -0.3830306 ]
+ [ 0.84313962  0.90677442  0.95807684  0.          0.24025829  0.
+  -0.34560194  0.          0.13567496  0.50893884  0.117125    0.02795044]
+ [ 0.25380208  0.38695911  0.33468395  0.          0.13771304  0.
+   0.15241701  0.          0.11892337  0.14844002  0.19912169  0.08627391]
+ [ 0.31441762  0.31216405  0.39450412  0.          0.24267534  0.
+   0.3062852   0.          0.14291055  0.1234846   0.16929505  0.3418466 ]]
+Policy matrix after 26001 iterations:
+ &gt;   &gt;   &gt;   *  
+ ^   #   ^   *  
+ ^   &gt;   ^   &lt;  
+
+
+Epsilon: 0.028840315031266057
+State-Action matrix after 27001 iterations:
+[[ 0.3482651   0.41332963  0.47732757  0.          0.78110294  0.
+   0.72475339  0.          0.59496307  0.14739608  0.61393988 -0.3895376 ]
+ [ 0.84499176  0.90671606  0.95716323  0.          0.2564386   0.
+  -0.35298642  0.          0.14471396  0.51760306  0.12716369  0.03384048]
+ [ 0.27095824  0.40258839  0.34937812  0.          0.14582968  0.
+   0.16214433  0.          0.12601371  0.15766833  0.2099237   0.09127701]
+ [ 0.32724551  0.32471984  0.40233529  0.          0.25369837  0.
+   0.31297104  0.          0.1554194   0.13295487  0.18036168  0.34660707]]
+Policy matrix after 27001 iterations:
+ &gt;   &gt;   &gt;   *  
+ ^   #   ^   *  
+ ^   &gt;   ^   &lt;  
+
+
+Epsilon: 0.027542287033381664
+State-Action matrix after 28001 iterations:
+[[ 0.36156201  0.42292118  0.49066276  0.          0.78483927  0.
+   0.69598526  0.          0.60898496  0.15584942  0.61429056 -0.40093491]
+ [ 0.84604873  0.90624117  0.95781054  0.          0.26682847  0.
+  -0.36019031  0.          0.15403164  0.52485995  0.13355376  0.03617742]
+ [ 0.28251447  0.4162614   0.36270044  0.          0.15761602  0.
+   0.17265941  0.          0.13837749  0.16720707  0.21924702  0.09870715]
+ [ 0.33852021  0.33365342  0.41744734  0.          0.26880136  0.
+   0.32188379  0.          0.16679778  0.14532815  0.18883716  0.34475977]]
+Policy matrix after 28001 iterations:
+ &gt;   &gt;   &gt;   *  
+ ^   #   ^   *  
+ ^   &gt;   ^   &lt;  
+
+
+Epsilon: 0.026302679918953825
+State-Action matrix after 29001 iterations:
+[[ 0.37448322  0.43986259  0.50197244  0.          0.78707345  0.
+   0.7188221   0.          0.61931764  0.16308381  0.61333921 -0.40863285]
+ [ 0.84643907  0.90551638  0.95704623  0.          0.28074152  0.
+  -0.36566575  0.          0.16360587  0.53064309  0.1425776   0.04001276]
+ [ 0.29744142  0.43112957  0.37199794  0.          0.1690798   0.
+   0.17389806  0.          0.14733102  0.17680275  0.22812054  0.10681377]
+ [ 0.35150905  0.34501727  0.42902693  0.          0.28720594  0.
+   0.33173907  0.          0.18044353  0.15414015  0.19738422  0.34940559]]
+Policy matrix after 29001 iterations:
+ &gt;   &gt;   &gt;   *  
+ ^   #   ^   *  
+ ^   &gt;   ^   &lt;  
+
+
+Epsilon: 0.0251188643150958
+State-Action matrix after 30001 iterations:
+[[ 0.38831002  0.44742884  0.5139458   0.          0.78908643  0.
+   0.72288482  0.          0.6298907   0.17211296  0.61618143 -0.41588369]
+ [ 0.84707619  0.90541338  0.95974395  0.          0.29422466  0.
+  -0.37348943  0.          0.1713793   0.53554106  0.14833915  0.0422455 ]
+ [ 0.31242116  0.44382214  0.38415132  0.          0.18053267  0.
+   0.1855565   0.          0.15661817  0.18347751  0.23782602  0.11383396]
+ [ 0.36400364  0.35961011  0.43962569  0.          0.29999383  0.
+   0.34361845  0.          0.19396866  0.16530503  0.20476011  0.3486275 ]]
+Policy matrix after 30001 iterations:
+ &gt;   &gt;   &gt;   *  
+ ^   #   ^   *  
+ ^   &gt;   ^   &lt;  
+
+
+Epsilon: 0.023988329190194908
+State-Action matrix after 31001 iterations:
+[[ 0.40117553  0.45812769  0.52396787  0.          0.79041918  0.
+   0.70378323  0.          0.64092723  0.18435126  0.61714021 -0.42492543]
+ [ 0.84678309  0.90594984  0.9564735   0.          0.30372114  0.
+  -0.37814698  0.          0.1782193   0.54067525  0.15300871  0.04842481]
+ [ 0.32595623  0.4532703   0.39158783  0.          0.19263672  0.
+   0.19358272  0.          0.1670603   0.19392408  0.2458517   0.11990695]
+ [ 0.37431602  0.37167565  0.4522482   0.          0.31525128  0.
+   0.35512851  0.          0.2063019   0.17743627  0.2163192   0.35192496]]
+Policy matrix after 31001 iterations:
+ &gt;   &gt;   &gt;   *  
+ ^   #   ^   *  
+ ^   &gt;   ^   &lt;  
+
+
+Epsilon: 0.02290867652767773
+State-Action matrix after 32001 iterations:
+[[ 0.41616991  0.46873129  0.5360653   0.          0.79202282  0.
+   0.71051587  0.          0.65055771  0.1945173   0.61515594 -0.43288988]
+ [ 0.84690164  0.9058876   0.95701816  0.          0.31641643  0.
+  -0.39104117  0.          0.18805451  0.5447007   0.15737049  0.04899988]
+ [ 0.33655017  0.46078052  0.39986059  0.          0.20438442  0.
+   0.19693277  0.          0.17824364  0.20187224  0.25474753  0.12850146]
+ [ 0.38365384  0.38130094  0.46337334  0.          0.32805319  0.
+   0.36497134  0.          0.21785678  0.18896901  0.22516259  0.35452083]]
+Policy matrix after 32001 iterations:
+ &gt;   &gt;   &gt;   *  
+ ^   #   ^   *  
+ ^   &gt;   ^   &lt;  
+
+
+Epsilon: 0.021877616239495527
+State-Action matrix after 33001 iterations:
+[[ 0.42274507  0.48279334  0.54732299  0.          0.79283517  0.
+   0.70136342  0.          0.65865261  0.20143634  0.61190846 -0.44053297]
+ [ 0.84697952  0.90634459  0.95627623  0.          0.32611573  0.
+  -0.40038898  0.          0.19963008  0.54742918  0.16524716  0.05455829]
+ [ 0.34828178  0.47237607  0.40711532  0.          0.21384191  0.
+   0.20501312  0.          0.18933307  0.20883598  0.26390904  0.1348303 ]
+ [ 0.39367658  0.39556562  0.47438123  0.          0.34263394  0.
+   0.37210406  0.          0.22841172  0.19851643  0.23279811  0.3518786 ]]
+Policy matrix after 33001 iterations:
+ &gt;   &gt;   &gt;   *  
+ ^   #   ^   *  
+ ^   &gt;   ^   &lt;  
+
+
+Epsilon: 0.020892961308540393
+State-Action matrix after 34001 iterations:
+[[ 0.43462209  0.49093502  0.55969365  0.          0.7937974   0.
+   0.69144962  0.          0.66527516  0.20857845  0.61004728 -0.4453586 ]
+ [ 0.84686593  0.90718906  0.95674874  0.          0.33571346  0.
+  -0.40784766  0.          0.20900952  0.54914941  0.17022584  0.05409038]
+ [ 0.35735192  0.48518531  0.41409141  0.          0.22574096  0.
+   0.21512804  0.          0.20175845  0.21697396  0.27227351  0.13815988]
+ [ 0.40450659  0.40599718  0.48454654  0.          0.3553303   0.
+   0.38207314  0.          0.23849126  0.21033673  0.24117882  0.34862596]]
+Policy matrix after 34001 iterations:
+ &gt;   &gt;   &gt;   *  
+ ^   #   ^   *  
+ ^   &gt;   ^   &lt;  
+
+
+Epsilon: 0.019952623149688802
+State-Action matrix after 35001 iterations:
+[[ 0.44711227  0.49984149  0.56752072  0.          0.79444106  0.
+   0.66511529  0.          0.67204593  0.2166049   0.60367101 -0.45529177]
+ [ 0.84788207  0.90816871  0.95957912  0.          0.34767888  0.
+  -0.41844892  0.          0.21727156  0.55083397  0.17598957  0.05978045]
+ [ 0.367026    0.49165462  0.42069061  0.          0.23682072  0.
+   0.2231594   0.          0.21526265  0.22553123  0.27752274  0.14644061]
+ [ 0.4177886   0.41702514  0.49397748  0.          0.36618228  0.
+   0.38991839  0.          0.24773276  0.22088796  0.25032229  0.35471166]]
+Policy matrix after 35001 iterations:
+ &gt;   &gt;   &gt;   *  
+ ^   #   ^   *  
+ ^   &gt;   ^   &lt;  
+
+
+Epsilon: 0.019054607179632477
+State-Action matrix after 36001 iterations:
+[[ 0.46005301  0.50791825  0.57981014  0.          0.79507934  0.
+   0.68681191  0.          0.6784021   0.22586203  0.60428549 -0.46458852]
+ [ 0.84932187  0.90806253  0.95697449  0.          0.36336294  0.
+  -0.42954302  0.          0.22365465  0.55140714  0.18232485  0.06376731]
+ [ 0.37676126  0.50038217  0.43108606  0.          0.25120485  0.
+   0.22699012  0.          0.22470979  0.23515503  0.2862947   0.15220618]
+ [ 0.42387822  0.42849663  0.5041697   0.          0.37567412  0.
+   0.39468718  0.          0.25801237  0.23503277  0.25895462  0.35266691]]
+Policy matrix after 36001 iterations:
+ &gt;   &gt;   &gt;   *  
+ ^   #   ^   *  
+ ^   &gt;   ^   &lt;  
+
+
+Epsilon: 0.018197008586099836
+State-Action matrix after 37001 iterations:
+[[ 0.47047803  0.51667132  0.59246045  0.          0.7961811   0.
+   0.67564571  0.          0.68310377  0.23480263  0.60050973 -0.47572272]
+ [ 0.84986749  0.9079373   0.96220103  0.          0.37476346  0.
+  -0.43248156  0.          0.2299146   0.55169288  0.18678896  0.06634347]
+ [ 0.38880115  0.51292116  0.43744945  0.          0.26125984  0.
+   0.23356147  0.          0.23768914  0.24540893  0.29249798  0.15740207]
+ [ 0.43182607  0.4374921   0.51563323  0.          0.38624533  0.
+   0.40191206  0.          0.2707645   0.24770264  0.26366501  0.35913096]]
+Policy matrix after 37001 iterations:
+ &gt;   &gt;   &gt;   *  
+ ^   #   ^   *  
+ ^   &gt;   ^   &lt;  
+
+
+Epsilon: 0.017378008287493755
+State-Action matrix after 38001 iterations:
+[[ 0.48426912  0.52717882  0.60368626  0.          0.79693727  0.
+   0.69501609  0.          0.68877934  0.24118242  0.60153368 -0.48039144]
+ [ 0.85112086  0.90851686  0.95697347  0.          0.38101763  0.
+  -0.43451731  0.          0.23898437  0.55135852  0.1936306   0.06852589]
+ [ 0.39650871  0.518485    0.44290194  0.          0.27117711  0.
+   0.23222906  0.          0.2488139   0.25193511  0.29853047  0.16350399]
+ [ 0.44142161  0.44787992  0.52661889  0.          0.39551062  0.
+   0.40922861  0.          0.28310097  0.26084038  0.27232335  0.36441513]]
+Policy matrix after 38001 iterations:
+ &gt;   &gt;   &gt;   *  
+ ^   #   ^   *  
+ ^   &gt;   ^   &lt;  
+
+
+Epsilon: 0.016595869074375606
+State-Action matrix after 39001 iterations:
+[[ 0.49116992  0.53605225  0.61237733  0.          0.79820884  0.
+   0.70094153  0.          0.69383977  0.25022416  0.60119764 -0.4890666 ]
+ [ 0.85128613  0.90842478  0.95412983  0.          0.39165395  0.
+  -0.4388463   0.          0.24737239  0.55092047  0.19877064  0.07240427]
+ [ 0.40989524  0.52601381  0.45064896  0.          0.282288    0.
+   0.2385735   0.          0.25899825  0.25872173  0.30469841  0.16788794]
+ [ 0.45110057  0.45829788  0.5353696   0.          0.40536917  0.
+   0.41914235  0.          0.29249411  0.27166935  0.27937305  0.36057881]]
+Policy matrix after 39001 iterations:
+ &gt;   &gt;   &gt;   *  
+ ^   #   ^   *  
+ ^   &gt;   ^   &lt;  
+
+
+Epsilon: 0.015848931924611134
+State-Action matrix after 40001 iterations:
+[[ 0.4982837   0.54473113  0.62387679  0.          0.798792    0.
+   0.70899185  0.          0.69927521  0.25646999  0.60597492 -0.49653245]
+ [ 0.8510992   0.90639029  0.95542892  0.          0.40263995  0.
+  -0.43662892  0.          0.25411922  0.55115274  0.20578041  0.0743998 ]
+ [ 0.42015594  0.53526371  0.45892802  0.          0.2929252   0.
+   0.24272716  0.          0.2677093   0.26748558  0.31053362  0.17276014]
+ [ 0.46166809  0.46658397  0.5469921   0.          0.41259234  0.
+   0.42722582  0.          0.30389591  0.28219741  0.28732244  0.36880075]]
+Policy matrix after 40001 iterations:
+ &gt;   &gt;   &gt;   *  
+ ^   #   ^   *  
+ ^   &gt;   ^   &lt;  
+
+
+Epsilon: 0.015135612484362085
+State-Action matrix after 41001 iterations:
+[[ 0.50829882  0.55444969  0.63320903  0.          0.79871058  0.
+   0.71604794  0.          0.70238402  0.26449054  0.60983471 -0.50576883]
+ [ 0.84981522  0.90554251  0.95565672  0.          0.41419203  0.
+  -0.44033792  0.          0.26083606  0.55172649  0.21074786  0.07873098]
+ [ 0.42623936  0.54423916  0.46430383  0.          0.30528     0.
+   0.25045933  0.          0.27887175  0.27404913  0.31554784  0.17953774]
+ [ 0.4698125   0.47492542  0.55312061  0.          0.42142278  0.
+   0.43552684  0.          0.31134493  0.29042662  0.29467216  0.36907654]]
+Policy matrix after 41001 iterations:
+ &gt;   &gt;   &gt;   *  
+ ^   #   ^   *  
+ ^   &gt;   ^   &lt;  
+
+
+Epsilon: 0.014454397707459278
+State-Action matrix after 42001 iterations:
+[[ 0.5170321   0.55931292  0.64109636  0.          0.7985269   0.
+   0.69813493  0.          0.70677391  0.27209712  0.61617593 -0.50956475]
+ [ 0.8484561   0.90582032  0.95659787  0.          0.42341941  0.
+  -0.44721539  0.          0.26772664  0.55330503  0.21667286  0.0847407 ]
+ [ 0.43495595  0.55314095  0.46790739  0.          0.31592465  0.
+   0.25796942  0.          0.28710067  0.28143832  0.32370267  0.18576332]
+ [ 0.47834704  0.48618807  0.56068404  0.          0.42940881  0.
+   0.44147401  0.          0.32263163  0.3033914   0.30172214  0.37726955]]
+Policy matrix after 42001 iterations:
+ &gt;   &gt;   &gt;   *  
+ ^   #   ^   *  
+ ^   &gt;   ^   &lt;  
+
+
+Epsilon: 0.01380384264602885
+State-Action matrix after 43001 iterations:
+[[ 0.524541    0.56762848  0.64907183  0.          0.79861356  0.
+   0.71023673  0.          0.70975921  0.28009782  0.61424974 -0.51539978]
+ [ 0.84789738  0.90625645  0.95910733  0.          0.43443242  0.
+  -0.4568596   0.          0.27515519  0.55490391  0.21987641  0.08216282]
+ [ 0.44584913  0.5648211   0.47512529  0.          0.32710111  0.
+   0.2594122   0.          0.29878486  0.29040131  0.32870812  0.19008193]
+ [ 0.48728557  0.49371891  0.57021285  0.          0.43789732  0.
+   0.4484372   0.          0.33525041  0.31156992  0.3083968   0.383426  ]]
+Policy matrix after 43001 iterations:
+ &gt;   &gt;   &gt;   *  
+ ^   #   ^   *  
+ ^   &gt;   ^   &lt;  
+
+
+Epsilon: 0.013182567385564071
+State-Action matrix after 44001 iterations:
+[[ 0.53268532  0.57602171  0.65606421  0.          0.79791915  0.
+   0.69983286  0.          0.7110015   0.28776998  0.61268734 -0.51551763]
+ [ 0.84842485  0.90690198  0.95666528  0.          0.44400343  0.
+  -0.46195629  0.          0.28052954  0.55624978  0.22570916  0.08467102]
+ [ 0.45490906  0.57508429  0.48073085  0.          0.33448446  0.
+   0.26625385  0.          0.3058291   0.29761508  0.33492409  0.19343653]
+ [ 0.49294751  0.50041486  0.57893521  0.          0.44513865  0.
+   0.45471542  0.          0.34311643  0.32236896  0.31517142  0.38567155]]
+Policy matrix after 44001 iterations:
+ &gt;   &gt;   &gt;   *  
+ ^   #   ^   *  
+ ^   &gt;   ^   &lt;  
+
+
+Epsilon: 0.012589254117941673
+State-Action matrix after 45001 iterations:
+[[ 0.54126463  0.5811331   0.66189905  0.          0.79760274  0.
+   0.68857961  0.          0.71343815  0.29540685  0.61093935 -0.52093778]
+ [ 0.84874482  0.90724182  0.96005975  0.          0.45387308  0.
+  -0.47756203  0.          0.28982278  0.55690426  0.22994616  0.08893755]
+ [ 0.46593978  0.58345546  0.48556111  0.          0.3430597   0.
+   0.27160425  0.          0.315419    0.30409959  0.33891997  0.19736108]
+ [ 0.50026803  0.51026547  0.58826395  0.          0.45394845  0.
+   0.46062922  0.          0.35537986  0.32866335  0.32058214  0.38614545]]
+Policy matrix after 45001 iterations:
+ &gt;   &gt;   &gt;   *  
+ ^   #   ^   *  
+ ^   &gt;   ^   &lt;  
+
+
+Epsilon: 0.01202264434617413
+State-Action matrix after 46001 iterations:
+[[ 0.54881211  0.58781449  0.66946514  0.          0.79786933  0.
+   0.70288477  0.          0.71612918  0.30309783  0.60982124 -0.52379844]
+ [ 0.84896384  0.90712372  0.95833071  0.          0.46336167  0.
+  -0.48393369  0.          0.29650872  0.55726877  0.23524833  0.09287184]
+ [ 0.47529573  0.5922379   0.49286545  0.          0.34912974  0.
+   0.27670769  0.          0.3254001   0.31028083  0.34339423  0.20208786]
+ [ 0.50862235  0.51674945  0.59596534  0.          0.46358327  0.
+   0.46550173  0.          0.36805945  0.34151345  0.32690022  0.38205064]]
+Policy matrix after 46001 iterations:
+ &gt;   &gt;   &gt;   *  
+ ^   #   ^   *  
+ ^   &gt;   ^   &lt;  
+
+
+Epsilon: 0.01148153621496883
+State-Action matrix after 47001 iterations:
+[[ 0.55749021  0.59343736  0.6771356   0.          0.79859208  0.
+   0.72154994  0.          0.717756    0.3098034   0.61632479 -0.53133364]
+ [ 0.84916664  0.90824369  0.96317556  0.          0.47295333  0.
+  -0.48537429  0.          0.30458314  0.55804423  0.23893929  0.09459396]
+ [ 0.48351713  0.60032151  0.49755481  0.          0.35825343  0.
+   0.28304175  0.          0.33460218  0.31515426  0.34972845  0.20677509]
+ [ 0.5162164   0.52610787  0.60280571  0.          0.46892229  0.
+   0.46878662  0.          0.37651915  0.34717293  0.33189648  0.38254306]]
+Policy matrix after 47001 iterations:
+ &gt;   &gt;   &gt;   *  
+ ^   #   ^   *  
+ ^   &gt;   ^   &lt;  
+
+
+Epsilon: 0.010964781961431852
+State-Action matrix after 48001 iterations:
+[[ 0.56575424  0.60108904  0.68625072  0.          0.79906838  0.
+   0.68893738  0.          0.7188008   0.31604948  0.61722694 -0.53098175]
+ [ 0.85003183  0.90784567  0.9568127   0.          0.48166509  0.
+  -0.48452065  0.          0.31098282  0.55947253  0.24282972  0.09896407]
+ [ 0.49072357  0.60829199  0.50189415  0.          0.36481514  0.
+   0.29206992  0.          0.34226307  0.32159166  0.3557825   0.21084663]
+ [ 0.52528325  0.53266981  0.60857562  0.          0.47640657  0.
+   0.47284115  0.          0.38490225  0.35550785  0.33647076  0.39861032]]
+Policy matrix after 48001 iterations:
+ &gt;   &gt;   &gt;   *  
+ ^   #   ^   *  
+ ^   &gt;   ^   &lt;  
+
+
+Epsilon: 0.010471285480508997
+State-Action matrix after 49001 iterations:
+[[ 0.57330318  0.60839895  0.694218    0.          0.79880213  0.
+   0.69062616  0.          0.71979218  0.32308624  0.61517827 -0.52760418]
+ [ 0.85027829  0.90769526  0.95706816  0.          0.49049298  0.
+  -0.48586419  0.          0.31911867  0.56055844  0.24594552  0.1027149 ]
+ [ 0.49576302  0.61429813  0.50808535  0.          0.37486667  0.
+   0.29205009  0.          0.35255359  0.32685081  0.36056762  0.21544451]
+ [ 0.53325509  0.53967218  0.61597404  0.          0.48202896  0.
+   0.47711209  0.          0.39050912  0.36489991  0.34335232  0.38973186]]
+Policy matrix after 49001 iterations:
+ &gt;   &gt;   &gt;   *  
+ ^   #   ^   *  
+ ^   &gt;   ^   &lt;  
+</pre></div>
+</div>
+<img alt="_images/7ca70ae4e15bb7aa06151a118c0f1b41724096a1c67ecb54459b27a631c2cf67.png" src="_images/7ca70ae4e15bb7aa06151a118c0f1b41724096a1c67ecb54459b27a631c2cf67.png" />
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+                <footer class="bd-footer-article">
+                  
+<div class="footer-article-items footer-article__inner">
+  
+    <div class="footer-article-item"><!-- Previous / next buttons -->
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="intro.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Implementation on Reinforcement Learning Algorithms</p>
+      </div>
+    </a>
+</div></div>
+  
+</div>
+
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="simple visible nav section-nav flex-column">
+</ul>
+
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Arian Morteza
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  <p class="copyright">
+    
+      © Copyright 2024.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
